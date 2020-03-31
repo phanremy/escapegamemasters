@@ -1,0 +1,51 @@
+<div class="container container-home py-5" style="">
+  <h2 class="text-center">A Little Bit About Me..</h2>
+  <ul class="ul-dflex-center mt-5">
+    <li class="active tab-selector" id="achievements-selector">Achievements</li>
+    <li class="tab-selector" id="current-works-selector">Current Works</li>
+    <li class="tab-selector" id="collaborations-selector">Collaborations</li>
+    <!-- <li class="btn btn-danger border m-2">Blog Posts</li> -->
+    <!-- <li class="btn btn-info border m-2">Hobbies</li> -->
+  </ul>
+  <div class="active tab-section" id="achievements">
+    <div class="cards">
+      <% @card_title = "Achievement 1" %>
+      <% @url_image_path = "https://source.unsplash.com/random/120x120" %>
+      <%= render 'shared/horizontal-card' %>
+      <% @card_title = "Achievement 2" %>
+      <% @url_image_path = "https://source.unsplash.com/random/120x119" %>
+      <%= render 'shared/horizontal-card' %>
+      <% @card_title = "Achievement 3" %>
+      <% @url_image_path = "https://source.unsplash.com/random/119x119" %>
+      <%= render 'shared/horizontal-card' %>
+    </div>
+  </div>
+  <div class="hidden tab-section" id="current-works">
+    <div class="row justify-content-center py-2">
+      <div class="col-10 col-lg-6 dflex-center">
+        <img class="rounded" src="https://source.unsplash.com/random/300x200" alt="Card image cap">
+      </div>
+      <div class="col-10 col-lg-6 pt-4 pt-lg-3">
+        <h4>Ongoing Projects</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam et, impedit, placeat voluptate dolores labore quibusdam dolore mollitia amet quisquam reiciendis perferendis dolorem nostrum nobis eveniet nisi, earum illo ea.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hidden tab-section" id="collaborations">
+    <div class="row justify-content-center py-2">
+      <div class="col-10 col-lg-4 pt-4 pt-lg-5">
+        <h4>Collaboration 1</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam et, impedit, placeat voluptate dolores labore quibusdam dolore mollitia amet quisquam reiciendis perferendis dolorem nostrum nobis eveniet nisi, earum illo ea.</p>
+      </div>
+      <div class="col-10 col-lg-4 dflex-center">
+        <img class="rounded" src="https://source.unsplash.com/random/200x300" alt="Card image cap">
+      </div>
+      <div class="col-10 col-lg-4 pt-4 pt-lg-5">
+        <h4>Collaboration 2</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam et, impedit, placeat voluptate dolores labore quibusdam dolore mollitia amet quisquam reiciendis perferendis dolorem nostrum nobis eveniet nisi, earum illo ea.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

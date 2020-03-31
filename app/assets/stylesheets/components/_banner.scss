@@ -1,0 +1,22 @@
+// to use image tag, all background property to be in html style tags
+
+.master-banner {
+  padding: 300px 0;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://source.unsplash.com/random/1000x500");
+  background-size: cover;
+  color: white;
+}
+
+.secondary-banner {
+  padding: 200px 0;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://source.unsplash.com/random/1500x499");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.master-banner > .container {
+  font-size: 40px;
+  font-weight: bold;
+}

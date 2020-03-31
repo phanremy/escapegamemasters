@@ -1,0 +1,25 @@
+.asset {
+  display: flex;
+  // min-width: 300px;
+
+  .asset-text{
+    text-align: left;
+    padding-left: 8px;
+    padding-top:16px;
+
+    h2 {
+      padding-bottom: 8px;
+    }
+  }
+
+  .asset-img {
+    min-width: 80px;
+    text-align: center;
+
+
+    i {
+      color: green;
+      font-size: 50px;
+    }
+  }
+}

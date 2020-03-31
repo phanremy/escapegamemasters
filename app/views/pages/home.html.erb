@@ -1,0 +1,81 @@
+<div class="master-banner" id="master-banner">
+  <div class="container text-center">
+      <p data-aos="fade-down-right" data-aos-duration="3000">My portfolio</p>
+      <br><%= link_to "Click here", "", class:"btn btn-success px-5"  %>
+  </div>
+</div>
+
+<div id="table-of-content">
+  <%= render 'shared/table-of-content' %>
+</div>
+
+
+<div class="py-5" id="text">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6 py-2 bg-white">
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, repellat aspernatur quidem accusantium, eveniet excepturi error facilis adipisci, quis, aperiam unde corporis laudantium ipsa dolorem dignissimos provident molestias esse culpa!</div>
+        <div>Dolorum maxime, ad nobis, laudantium dicta ipsam temporibus doloribus quo harum beatae optio ea molestias neque cumque dolor nihil. Ipsa vero, expedita in similique earum impedit quisquam esse quos incidunt.</div>
+        <div>In asperiores adipisci, aperiam cum eveniet expedita ratione sunt perspiciatis, repellendus illo corporis sapiente eos facere magni voluptatum quae illum consequuntur porro minus officia optio eligendi tempora qui voluptas! Unde.</div>
+        <div>Dolores sapiente suscipit ea velit dignissimos deleniti, doloremque, at voluptates neque molestiae, iste recusandae placeat. Officia, molestias facere tenetur itaque numquam delectus ipsa, incidunt, consequatur, sint voluptatum adipisci ut. Consequuntur?</div>
+      </div>
+      <div class="col-12 col-lg-6 py-2 bg-white">
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, repellat aspernatur quidem accusantium, eveniet excepturi error facilis adipisci, quis, aperiam unde corporis laudantium ipsa dolorem dignissimos provident molestias esse culpa!</div>
+        <div>Dolorum maxime, ad nobis, laudantium dicta ipsam temporibus doloribus quo harum beatae optio ea molestias neque cumque dolor nihil. Ipsa vero, expedita in similique earum impedit quisquam esse quos incidunt.</div>
+        <div>In asperiores adipisci, aperiam cum eveniet expedita ratione sunt perspiciatis, repellendus illo corporis sapiente eos facere magni voluptatum quae illum consequuntur porro minus officia optio eligendi tempora qui voluptas! Unde.</div>
+        <div>Dolores sapiente suscipit ea velit dignissimos deleniti, doloremque, at voluptates neque molestiae, iste recusandae placeat. Officia, molestias facere tenetur itaque numquam delectus ipsa, incidunt, consequatur, sint voluptatum adipisci ut. Consequuntur?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="secondary-banner" id="secondary-banner">
+  <div class="container container-home text-center">
+    <h2> Want to work with us?</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit architecto rerum vitae laboriosam illo soluta, amet maiores fugiat qui animi natus corporis adipisci, impedit non labore quas! Odio, hic, sint!</p>
+    <%= link_to "Click here", "", class:"btn btn-success"  %>
+  </div>
+</div>
+
+<div id="portfolio-links">
+  <%= render 'shared/portfolio-links' %>
+</div>
+
+<div id="tabs">
+  <%= render 'shared/tabs' %>
+</div>
+
+<div id="assets">
+  <%= render 'shared/assets' %>
+</div>
+
+<div class="py-5" id="cards">
+  <div class="container container-home text-center">
+    <h2> Check out our latest works</h2>
+    <div class="cards">
+      <% @url_image_path = "https://source.unsplash.com/random/200x200" %>
+      <%= render "shared/vertical-card" %>
+      <% @url_image_path = "https://source.unsplash.com/random/200x199" %>
+      <%= render "shared/vertical-card" %>
+      <% @url_image_path = "https://source.unsplash.com/random/199x199" %>
+      <%= render "shared/vertical-card" %>
+    </div>
+  </div>
+
+</div>
+
+<div style="background-color: white" class="py-5" id="collaborate-section">
+  <div class="container container-home text-center">
+    <h2> Want to work with us?</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit architecto rerum vitae laboriosam illo soluta, amet maiores fugiat qui animi natus corporis adipisci, impedit non labore quas! Odio, hic, sint!</p>
+    <%= link_to "Click here", "", class:"btn btn-success"  %>
+  </div>
+</div>
+
+<div id="social-footer">
+  <%= render 'shared/social-links' %>
+</div>
+
+<div id="master-footer">
+  <%= render 'shared/master-footer' %>
+</div>

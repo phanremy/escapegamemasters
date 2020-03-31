@@ -1,0 +1,12 @@
+.portfolio-image {
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+@media only screen and (min-width: 576px) {
+  .portfolio-image {
+    width: 500px;
+    height: 400px;
+  }
+}

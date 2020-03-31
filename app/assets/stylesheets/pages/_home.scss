@@ -1,0 +1,21 @@
+// Specific CSS for your home-page
+
+.ul-dflex-center {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+
+.dflex-center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
