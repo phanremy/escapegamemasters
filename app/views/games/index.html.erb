@@ -1,0 +1,7 @@
+<ul>
+  <% @games.each do |game| %>
+    <li>
+      <%= game.name %> - <small><%= game.company.name %></small>
+    </li>
+  <% end %>
+</ul>
