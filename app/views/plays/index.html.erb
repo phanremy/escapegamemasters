@@ -1,0 +1,12 @@
+<div class="container">
+  <%= link_to "New Play", new_play_path, class:"btn btn-success mb-5" %>
+  <ul>
+    <% @plays.each do |play| %>
+      <li>
+        <%= link_to play_path(play) do  %>
+          <%= play.user.first_name %> played with <%= play.players %> in game <%= play.game.name %>, she/he has done it? <%= play.done %>. he won? <%= play.won %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

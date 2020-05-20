@@ -1,0 +1,11 @@
+<div class="container">
+  <%= simple_form_for [ @game ] do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.association :company %>
+    <%= f.input :rating %>
+    <%= f.input :price %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+</div>
+

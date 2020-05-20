@@ -1,7 +1,16 @@
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <%= user.email %>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to user_path(user) do  %>
+          <%= user.first_name.capitalize %> <%= user.last_name.capitalize %> -
+        <% end %>
+        <%= user.email %>
+        <% if user == current_user %>
+          - <%= link_to "📝", edit_user_registration_path(user) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

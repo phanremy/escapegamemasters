@@ -1,7 +1,14 @@
-<ul>
-  <% @games.each do |game| %>
-    <li>
-      <%= game.name %> - <small><%= game.company.name %></small>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <%= link_to "New Game", new_game_path, class:"btn btn-success mb-5" %>
+
+  <ul>
+    <% @games.each do |game| %>
+      <li>
+        <%= link_to game_path(game) do  %>
+          <%= game.name %>
+        <% end %> - <small><%= game.company.name %></small>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

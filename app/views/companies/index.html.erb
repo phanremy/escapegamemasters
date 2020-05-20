@@ -1,7 +1,14 @@
-<ul>
-  <% @companies.each do |company| %>
-    <li>
-      <%= company.name %> - <small><%= company.address %></small>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <%= link_to "New Company", new_company_path, class:"btn btn-success mb-5" %>
+
+  <ul>
+    <% @companies.each do |company| %>
+      <li>
+        <%= link_to company_path(company) do  %>
+          <%= company.name %>
+        <% end %> - <small><%= company.address %></small>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

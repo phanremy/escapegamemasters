@@ -50,3 +50,5 @@ game_francais.save
 # won
 # 45min
 
+# room rush
+#
