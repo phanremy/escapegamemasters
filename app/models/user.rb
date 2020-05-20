@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one_attached :avatar
   has_many :plays
   has_many :friends
   has_many :partner_friends, class_name: "Friend", foreign_key: 'partner_id'
