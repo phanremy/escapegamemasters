@@ -32,6 +32,6 @@ class PlaysController < ApplicationController
   private
 
   def play_params
-    params.require(:play).permit(:done, :won, :date, :players)
+    params.require(:play).permit(:done, :won, :date, :players, photos: [])
   end
 end
