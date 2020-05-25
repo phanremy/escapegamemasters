@@ -1,1 +1,37 @@
-show.html.erb
+<div class="container">
+  <p>
+    Game name: <%= @play.game.name %>
+  </p>
+  <p>
+    Who Played: <%= @play.user.first_name %> and <%= @play.players %>
+  </p>
+  <p>
+    -----------
+  </p>
+  <p>
+    You <%= @play.won ? "won!" : "lost.." %>
+  </p>
+  <% if @play.won %>
+    <p>
+      Score:
+    </p>
+  <% end -%>
+  <p>
+    -----------
+  </p>
+  <p>
+    Photos:
+  </p>
+  <p>
+    -----------
+  </p>
+  <p>
+    Comments:
+  </p>
+  <p>
+    -----------
+  </p>
+  <p>
+    <%= link_to "Back to dashboard", user_path(current_user) %>
+  </p>
+</div>

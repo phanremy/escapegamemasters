@@ -7,6 +7,7 @@
         <%= link_to company_path(company) do  %>
           <%= company.name %>
         <% end %> - <small><%= company.address %></small>
+        - <%= link_to "📝", edit_company_path(company) %>
       </li>
     <% end %>
   </ul>

@@ -6,6 +6,7 @@
         <%= link_to play_path(play) do  %>
           <%= play.user.first_name %> played with <%= play.players %> in game <%= play.game.name %>, she/he has done it? <%= play.done %>. he won? <%= play.won %>
         <% end %>
+         - <%= link_to "📝", edit_play_path(play) %>
       </li>
     <% end %>
   </ul>

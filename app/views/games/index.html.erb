@@ -7,6 +7,7 @@
         <%= link_to game_path(game) do  %>
           <%= game.name %>
         <% end %> - <small><%= game.company.name %></small>
+          - <%= link_to "📝", edit_game_path(game) %>
       </li>
     <% end %>
   </ul>

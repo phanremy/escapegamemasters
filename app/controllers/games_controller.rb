@@ -13,8 +13,6 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @company = Company.find(params[:game][:company].to_i)
-    @game.company = @company
     if @game.save
       redirect_to game_path(@game)
     else
@@ -22,9 +20,22 @@ class GamesController < ApplicationController
     end
   end
 
+  def edit
+    @game = Game.find(params[:id])
+  end
+
+  def update
+    @game = Game.find(params[:id])
+    if @game.update(game_params)
+      redirect_to game_path(@game)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def game_params
-    params.require(:game).permit(:name, :description, :rating, :price, photos: [])
+    params.require(:game).permit(:name, :description, :rating, :company_id, :price, photos: [])
   end
 end
