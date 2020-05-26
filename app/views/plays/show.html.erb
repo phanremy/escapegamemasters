@@ -17,7 +17,14 @@
       <% @player = participation.user %>
       <% if @player %>
         <%= link_to participation_path(participation), method: :delete do %>
-          <p class="btn btn-success"><%= "#{@player.first_name} #{@player.last_name}"%></p>
+          <p class="btn btn-success">
+            <% if @player.avatar.attached? %>
+              <%= cl_image_tag @player.avatar.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
+            <%= "#{@player.first_name} #{@player.last_name}"%>
+          </p>
         <% end %>
       <% else %>
         <%= link_to participation_path(participation), method: :delete do %>
@@ -31,7 +38,7 @@
       <%= text_field_tag :player,
         params[:player],
         class: "form-control",
-        placeholder: "Rem, Kat, etc."
+        placeholder: "Rem, Kit, etc."
       %>
       <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
     <% end %>
@@ -47,18 +54,18 @@
   </p>
   <% if @play.done %>
     <p>
-      Tu as <%= @play.won ? "gagné!" : "perdu.." %>
+      Vous avez <%= @play.won ? "gagné!" : "perdu.." %>
     </p>
   <% else %>
     <p>
       Partie pas encore déroulé
     </p>
   <% end %>
-  <% if @play.won %>
+<!--   <% if @play.won %>
     <p>
       Score:
     </p>
-  <% end -%>
+  <% end -%> -->
   <p>
     -----------
   </p>
@@ -85,6 +92,6 @@
     -----------
   </p>
   <p>
-    <%= link_to "Retour au dashboard", user_path(current_user) %>
+    <%= link_to "Editer la partie", edit_play_path(@play) %> | <%= link_to "Retour au dashboard", user_path(current_user) %>
   </p>
 </div>

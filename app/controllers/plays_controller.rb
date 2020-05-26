@@ -14,8 +14,10 @@ class PlaysController < ApplicationController
 
   def create
     @play = Play.new(play_params)
-    raise
     @play.user = current_user
+    unless @play.date.nil?
+      @play.date < Date.today ? @play.done = true : @play.done = false
+    end
     # company.save and game.save if game does not exist
     if @play.save
       Participation.create(play: @play, user: current_user)

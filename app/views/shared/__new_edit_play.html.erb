@@ -1,11 +1,26 @@
 <div class="container">
   <h1>New Play / Nouvelle Partie</h1>
-  <%= simple_form_for(@play) do |f| %>
-    <%= f.association :game, label_method: :name, value_method: :id, include_blank:false %>
-    <%= f.input :date %>
-    <%= f.input :done %>
-    <%= f.input :won, as: :radio_buttons %>
-    <%#= f.input :photos, as: :file, input_html: { multiple: true } %>
-    <%= f.submit "Enregistrer", class: "btn btn-primary" %>
-  <% end %>
+  <div class="container">
+    <%= simple_form_for(@play) do |f| %>
+      <%= f.association :game,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        value_method: :id,
+        include_blank:false,
+        label: 'Game / Salle:' %>
+      <%= f.input :date, as: :string, input_html: {class: "datepicker"} %>
+      <%#= f.input :done %>
+      <div class="done-visible">
+        <%= f.input :won,
+        as: :radio_buttons,
+        collection: [[true, 'Win / Gagné'], [false, 'Lose / Perdu']],
+        label_method: :second,
+        value_method: :first,
+        label: 'Result (Win/Lose) / Résultat (Gagné/Perdu):' %>
+      </div>
+      <%#= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <div class="d-flex justify-content-center">
+        <%= f.submit "Enregistrer", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
 </div>
