@@ -1,18 +1,18 @@
 <div class="container">
   <p>
-    Game name: <%= @play.game.name %>
+    Nom de la salle: <%= @play.game.name %>
   </p>
   <p>
-    Company name: <%= @play.game.company.name %>
+    Nom de la compagnie: <%= @play.game.company.name %>
   </p>
   <p>
-    Game date: <%= @play.date %>
+    Date de jeu: <%= @play.date %>
   </p>
   <p>
     -----------
   </p>
   <p>
-    Who Played:
+    Ont joué:
     <% @play.participations.each do |participation|%>
       <% @player = participation.user %>
       <% if @player %>
@@ -33,7 +33,7 @@
         class: "form-control",
         placeholder: "Rem, Kat, etc."
       %>
-      <%= submit_tag "Add Player", class: "btn btn-primary" %>
+      <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
     <% end %>
     <% unless @response.nil? %>
       <%= @response %>
@@ -43,15 +43,15 @@
     -----------
   </p>
   <p>
-    Score:
+    Section Score:
   </p>
   <% if @play.done %>
     <p>
-      You <%= @play.won ? "won!" : "lost.." %>
+      Tu as <%= @play.won ? "gagné!" : "perdu.." %>
     </p>
   <% else %>
     <p>
-      Game pending to be played
+      Partie pas encore déroulé
     </p>
   <% end %>
   <% if @play.won %>
@@ -64,7 +64,7 @@
   </p>
   <%= simple_form_for(@play) do |f| %>
     <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-    <%= f.submit "Add photos", class: "btn btn-primary" %>
+    <%= f.submit "Ajouter des photos", class: "btn btn-primary" %>
   <% end %>
   <div class="d-flex flex-wrap my-3">
     <% @play.photos.each do |photo| %>
@@ -79,12 +79,12 @@
     -----------
   </p>
   <p>
-    Comments:
+    Messages / Souvenirs de l'escape game:
   </p>
   <p>
     -----------
   </p>
   <p>
-    <%= link_to "Back to dashboard", user_path(current_user) %>
+    <%= link_to "Retour au dashboard", user_path(current_user) %>
   </p>
 </div>

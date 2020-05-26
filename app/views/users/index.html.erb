@@ -3,11 +3,16 @@
     <% @users.each do |user| %>
       <li>
         <%= link_to user_path(user) do  %>
+          <% if user.avatar.attached? %>
+            <%= cl_image_tag user.avatar.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
           <%= user.first_name.capitalize %> <%= user.last_name.capitalize %> -
         <% end %>
         <%= user.email %>
         <% if user == current_user %>
-          - <%= link_to "📝", edit_user_registration_path(user) %>
+          - <small><b><i>YOU</i></b></small> <%= link_to "📝", edit_user_registration_path(user) %>
         <% end %>
       </li>
     <% end %>

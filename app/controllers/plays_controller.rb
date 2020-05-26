@@ -9,11 +9,12 @@ class PlaysController < ApplicationController
 
   def new
     @play = Play.new
-    @new_game = Game.new
+    @game = Game.new
   end
 
   def create
     @play = Play.new(play_params)
+    raise
     @play.user = current_user
     # company.save and game.save if game does not exist
     if @play.save
