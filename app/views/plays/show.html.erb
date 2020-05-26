@@ -88,10 +88,32 @@
   <p>
     Messages / Souvenirs de l'escape game:
   </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <!-- <div class></div> -->
+        <div class="messages">
+          <% @play.messages.each do |message| %>
+            <%= render "messages/message", message: message %>
+          <% end %>
+        </div>
+        <div id="create-message">
+          <%= simple_form_for [@play, Message.new], remote: true do |f| %>
+            <%= f.input :content, label: false %>
+            <%= f.submit "⬅️ Submit", class:"right my-2" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
   <p>
     -----------
   </p>
   <p>
-    <%= link_to "Editer la partie", edit_play_path(@play) %> | <%= link_to "Retour au dashboard", user_path(current_user) %>
+    <%= link_to "Editer la partie", edit_play_path(@play) %>
+    <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
+    <% if current_user %>
+      | <%= link_to "Retour au dashboard", user_path(current_user) %>
+    <% end %>
   </p>
 </div>

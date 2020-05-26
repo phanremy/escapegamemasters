@@ -4,7 +4,7 @@ class PlaysController < ApplicationController
   end
 
   def show
-    @play = Play.find(params[:id])
+    @play = Play.includes(messages: :user).find(params[:id])
   end
 
   def new
