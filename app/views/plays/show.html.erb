@@ -3,14 +3,57 @@
     Game name: <%= @play.game.name %>
   </p>
   <p>
-    Who Played: <%= @play.user.first_name %> and <%= @play.players %>
+    Company name: <%= @play.game.company.name %>
+  </p>
+  <p>
+    Game date: <%= @play.date %>
   </p>
   <p>
     -----------
   </p>
   <p>
-    You <%= @play.won ? "won!" : "lost.." %>
+    Who Played:
+    <% @play.participations.each do |participation|%>
+      <% @player = participation.user %>
+      <% if @player %>
+        <%= link_to participation_path(participation), method: :delete do %>
+          <p class="btn btn-success"><%= "#{@player.first_name} #{@player.last_name}"%></p>
+        <% end %>
+      <% else %>
+        <%= link_to participation_path(participation), method: :delete do %>
+          <p class="btn btn-danger"><%= participation.optional_name %></p>
+        <% end %>
+      <% end %>
+    <% end %>
   </p>
+  <p>
+    <%= form_tag play_add_players_path(@play), method: :patch do %>
+      <%= text_field_tag :player,
+        params[:player],
+        class: "form-control",
+        placeholder: "Rem, Kat, etc."
+      %>
+      <%= submit_tag "Add Player", class: "btn btn-primary" %>
+    <% end %>
+    <% unless @response.nil? %>
+      <%= @response %>
+    <% end %>
+  </p>
+  <p>
+    -----------
+  </p>
+  <p>
+    Score:
+  </p>
+  <% if @play.done %>
+    <p>
+      You <%= @play.won ? "won!" : "lost.." %>
+    </p>
+  <% else %>
+    <p>
+      Game pending to be played
+    </p>
+  <% end %>
   <% if @play.won %>
     <p>
       Score:
@@ -19,9 +62,19 @@
   <p>
     -----------
   </p>
-  <p>
-    Photos:
-  </p>
+  <%= simple_form_for(@play) do |f| %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+    <%= f.submit "Add photos", class: "btn btn-primary" %>
+  <% end %>
+  <div class="d-flex flex-wrap my-3">
+    <% @play.photos.each do |photo| %>
+      <%= link_to delete_photo_play_url(@play, photo.id), method: :delete, data: { confirm: 'Are you fucking sure?' } do%>
+        <%= cl_image_tag photo.key, height: 200, width: 300, crop: :fill %>
+      <% end %>
+    <% end %>
+  </div>
+  <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
+  <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
   <p>
     -----------
   </p>

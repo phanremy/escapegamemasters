@@ -3,10 +3,33 @@
   <ul>
     <% @plays.each do |play| %>
       <li>
-        <%= link_to play_path(play) do  %>
-          <%= play.user.first_name %> played with <%= play.players %> in game <%= play.game.name %>, she/he has done it? <%= play.done %>. he won? <%= play.won %>
-        <% end %>
-         - <%= link_to "📝", edit_play_path(play) %>
+        <p>
+          <%= link_to play_path(play) do  %>
+            Game: <%= play.game.name %> - <%= play.game.company.name %>
+          <% end %>
+        </p>
+        <p>
+          Admin: <%= play.user.first_name %> |
+          Participants:
+          <% play.participations.each do |participation|%>
+            <%= participation.user ? participation.user.first_name : participation.optional_name%>
+          <% end %>
+        </p>
+        <p>
+          Status:
+          <% if play.done %>
+            <% if play.won %>
+              <b style="color:green">WIN</b>
+            <% else %>
+              <b style="color:red">LOSE</b>
+            <% end %>
+          <% else %>
+          <b>PENDING</b>
+          <% end %>
+        </p>
+        <p>
+         <%= link_to "📝", edit_play_path(play) %>
+        </p>
       </li>
     <% end %>
   </ul>

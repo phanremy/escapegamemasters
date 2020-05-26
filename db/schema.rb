@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_172052) do
+ActiveRecord::Schema.define(version: 2020_05_25_170946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,13 +78,22 @@ ActiveRecord::Schema.define(version: 2020_05_20_172052) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "participations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "play_id"
+    t.string "optional_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["play_id"], name: "index_participations_on_play_id"
+    t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
   create_table "plays", force: :cascade do |t|
     t.boolean "done"
     t.boolean "won"
     t.date "date"
     t.bigint "game_id"
     t.bigint "user_id"
-    t.text "players", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_plays_on_game_id"
@@ -114,6 +123,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_172052) do
   add_foreign_key "games", "companies"
   add_foreign_key "messages", "plays"
   add_foreign_key "messages", "users"
+  add_foreign_key "participations", "plays"
+  add_foreign_key "participations", "users"
   add_foreign_key "plays", "games"
   add_foreign_key "plays", "users"
 end

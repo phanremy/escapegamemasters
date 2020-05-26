@@ -2,7 +2,7 @@
   <%= simple_form_for(@company) do |f| %>
     <%= f.input :name %>
     <%= f.input :address %>
-    <%= f.input :description %>
+    <%= f.input :description, as: :text %>
     <%= f.input :website %>
     <%= f.submit %>
   <% end %>

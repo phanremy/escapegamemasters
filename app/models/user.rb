@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :avatar
-  has_many :plays
-  has_many :friends
+  has_many :plays, dependent: :destroy
+  has_many :friends, dependent: :destroy
+  has_many :participations, dependent: :destroy
   has_many :partner_friends, class_name: "Friend", foreign_key: 'partner_id'
 end
