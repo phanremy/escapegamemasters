@@ -1,4 +1,4 @@
-<div class="message <%= message.from?(current_user) ? "right" : "" %>">
+<div class="message <%= user_is_messages_author ? "right" : "" %>">
  <% if message.user.avatar.attached? %>
    <%= cl_image_tag message.user.avatar.key, class: "avatar"%>
  <% else %>

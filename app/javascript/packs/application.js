@@ -1,6 +1,6 @@
 import "bootstrap";
 import { selectorTabShow , selectorTabCarousel } from 'plugins/init_tab';
-import "../plugins/flatpickr"
+import "../plugins/flatpickr";
 
 selectorTabShow();
 
