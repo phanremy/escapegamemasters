@@ -1,0 +1,9 @@
+function destroy() {
+  const message = document.querySelector('.message-<%=@message.id%>');
+  const deleteMessage = document.querySelector('.delete-<%=@message.id%>');
+  message.innerHTML = "deleted message";
+  deleteMessage.innerHTML = ""
+  // value = 'The message has been deleted';
+}
+
+destroy()

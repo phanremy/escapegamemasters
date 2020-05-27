@@ -33,19 +33,21 @@
       <% end %>
     <% end %>
   </p>
-  <p>
-    <%= form_tag play_add_players_path(@play), method: :patch do %>
-      <%= text_field_tag :player,
-        params[:player],
-        class: "form-control",
-        placeholder: "Rem, Kit, etc."
-      %>
-      <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
-    <% end %>
-    <% unless @response.nil? %>
-      <%= @response %>
-    <% end %>
-  </p>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <%= form_tag play_add_players_path(@play), method: :patch do %>
+        <%= text_field_tag :player,
+          params[:player],
+          class: "form-control",
+          placeholder: "Rem, Kit, etc."
+        %>
+        <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
+      <% end %>
+      <% unless @response.nil? %>
+        <%= @response %>
+      <% end %>
+    </div>
+  </div>
   <p>
     -----------
   </p>

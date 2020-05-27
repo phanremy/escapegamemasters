@@ -4,7 +4,14 @@
  <% else %>
    <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
  <% end %>
- <div class="message-content">
+ <div class="message-content message-<%=message.id%>">
    <%= message.content %>
+ </div>
+ <div class="delete-<%=message.id%> d-flex justify-content-center align-items-center">
+  <% if user_is_messages_author %>
+   <%= link_to message_path(message), remote: true, method: :delete, data: { confirm: 'Are you fucking sure?' } do  %>
+    ❌
+   <% end %>
+  <% end %>
  </div>
 </div>

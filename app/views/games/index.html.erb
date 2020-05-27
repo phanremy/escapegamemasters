@@ -2,13 +2,18 @@
   <%= link_to "New Game", new_game_path, class:"btn btn-success mb-5" %>
 
   <ul>
-    <% @games.each do |game| %>
-      <li>
-        <%= link_to game_path(game) do  %>
-          <%= game.name %>
-        <% end %> - <small><%= game.company.name %></small>
-          - <%= link_to "📝", edit_game_path(game) %>
-      </li>
+    <% @companies.each do |company| %>
+    <div class="p-5 border m-3">
+      <h3><%= company.name %></h3>
+      <% company.games.each do |game| %>
+        <li>
+          <%= link_to game_path(game) do  %>
+            <%= game.name %>
+          <% end %> - <small><%= game.company.name %></small>
+            - <%= link_to "📝", edit_game_path(game) %>
+        </li>
+      <% end -%>
+    </div>
     <% end %>
   </ul>
 </div>

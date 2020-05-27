@@ -17,6 +17,22 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message = Message.find(params[:id])
+    @play = @message.play
+    if @message.destroy
+      respond_to do |format|
+        format.html { redirect_to play_path(@play) }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { render "plays/show" }
+        format.js
+      end
+    end
+  end
+
   private
 
   def message_params
