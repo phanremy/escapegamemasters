@@ -20,8 +20,12 @@
           Participants:
           <% play.participations.each do |participation|%>
             <%= participation.user ? participation.user.first_name : participation.optional_name%>
-            <% if participation.user.avatar.attached? %>
-              <%= cl_image_tag participation.user.avatar.key, class: "avatar"%>
+            <% if participation.user %>
+              <% if participation.user.avatar.attached? %>
+                <%= cl_image_tag participation.user.avatar.key, class: "avatar"%>
+              <% else %>
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
+              <% end %>
             <% else %>
               <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
             <% end %>
