@@ -1,7 +1,8 @@
 class GamesController < ApplicationController
+
   def index
     @companies = Company.all.order(:name)
-    # @games = Game.all.order(:name)
+    @games = Game.all.order(:name)
   end
 
   def show

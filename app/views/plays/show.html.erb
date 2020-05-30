@@ -12,6 +12,31 @@
     -----------
   </p>
   <p>
+    Messages / Souvenirs de l'escape game:
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <!-- <div class></div> -->
+        <div class="messages">
+          <% @play.messages.each do |message| %>
+            <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+          <% end %>
+        </div>
+        <div id="create-message">
+          <%= simple_form_for [@play, Message.new], remote: true do |f| %>
+            <%= f.input :content, label: false %>
+            <%= f.submit "⬅️ Submit", class:"right my-2" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>
+  <p>
+    -----------
+  </p>
+  <p>
     Ont joué:
     <% @play.participations.each do |participation|%>
       <% @player = participation.user %>
@@ -38,9 +63,17 @@
       <%= form_tag play_add_players_path(@play), method: :patch do %>
         <%= text_field_tag :player,
           params[:player],
-          class: "form-control",
-          placeholder: "Rem, Kit, etc."
+          data: { autocomplete: autocomplete_user_full_name_users_path },
+          class: "form-control player-field-tag",
+          placeholder: "Ecrivez le nom de la personne ou chercher dans la liste"
         %>
+        <select class="select2" id="user-input" name="user" data-id-element='#play_user_id'>
+          <% @users.each do |user| %>
+            <option value="user-<%= user.full_name %>" class="user-selects">
+              <%= user.full_name %>
+            </option>
+          <% end %>
+        </select>
         <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
       <% end %>
       <% unless @response.nil? %>
@@ -84,31 +117,6 @@
   </div>
   <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
   <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
-  <p>
-    -----------
-  </p>
-  <p>
-    Messages / Souvenirs de l'escape game:
-  </p>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <!-- <div class></div> -->
-        <div class="messages">
-          <% @play.messages.each do |message| %>
-            <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
-          <% end %>
-        </div>
-        <div id="create-message">
-          <%= simple_form_for [@play, Message.new], remote: true do |f| %>
-            <%= f.input :content, label: false %>
-            <%= f.submit "⬅️ Submit", class:"right my-2" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <p>
     -----------
   </p>
   <p>

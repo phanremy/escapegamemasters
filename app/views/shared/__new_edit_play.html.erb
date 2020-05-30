@@ -2,12 +2,86 @@
   <h1>New Play / Nouvelle Partie</h1>
   <div class="container">
     <%= simple_form_for(@play) do |f| %>
-      <%= f.association :game,
-        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
-        value_method: :id,
-        include_blank:false,
-        label: 'Game / Salle:' %>
-      <%= f.input :date, as: :string, input_html: {class: "datepicker"} %>
+      <% if false %>
+        <!-- https://stackoverflow.com/questions/29779009/ruby-on-rails-simple-form-autocomplete-association-search -->
+        <!-- as per david -->
+<!--         <%= f.input :game,
+          as: :search,
+          data: {autocomplete_source: games_path},
+          input_html: { class: 'ui-autocomplete-input play-selector',
+              id: "play-selector" } %> -->
+      <% else %>
+      <!-- https://github.com/peterwillcn/rails4-autocomplete/ -->
+      <!-- https://flaviodesousa.com/blog/autocomplete-over-associations-in-rails-4/ -->
+<!--        <%= f.input :game,
+            as: :autocomplete,
+            url: autocomplete_game_name_plays_path,
+            # label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+            # value_method: :id,
+            label: 'Game / Salle:' %> -->
+      <% end %>
+
+      <% if false %>
+      <!-- didd not work at all -->
+      <!-- https://stackoverflow.com/questions/15146269/how-do-i-use-select2-rails-with-simple-form -->
+        <%= f.input_field :game,
+              class: "select2",
+              id: "select2",
+              input_html: { class: "span8 select2", id: "select2" },
+              data: {
+                placeholder: "Game / Salle:",
+                saved: @games.to_json,
+                url: autocomplete_game_name_plays_path
+              }
+        %>
+      <% end %>
+
+      <% if false %>
+          <p>Game / Salle *</p>
+          <%= f.input :game, as: :select2, collection: @games %>
+      <% end %>
+
+      <% if false %>
+        <!-- https://github.com/mhuggins/simple_form_autocomplete -->
+        <%= f.input :game,
+          as: :autocomplete,
+          input_html: { class: "play-selector", id: "play-selector" },
+          id: 'play-selector',
+          source: autocomplete_game_name_plays_path,
+          label: 'Game / Salle:' %>
+      <% end %>
+
+      <% if false %>
+      <!-- worked, very good for small amount of games -->
+        <%= f.association :game_name,
+          # as: :search,
+          collection: Game.all.order(:company_id),
+          label_method: lambda {|game| "#{game.company.name} | #{game.name}"},
+          value_method: :id,
+          include_blank:false,
+          label: 'Game / Salle:',
+          input_html: { 'data-id-element' => '#play_game_id'} %>
+      <% end %>
+
+      <% if true %>
+        <div class="mb-4">
+          <%= f.input :game_id,
+          input_html: {class: "game-id"},
+          include_blank:false,
+          label: 'Game / Salle:',
+          as: :hidden %>
+          <select class="select2" id="game-input" name="game" data-id-element='#play_game_id'>
+            <% @games.each do |game| %>
+              <option value="game-<%= game.id %>" class="game-selects"><%= game.name %> | <%= game.company.name %></option>
+            <% end %>
+          </select>
+        </div>
+      <% end %>
+
+      <%= f.input :date,
+        as: :string,
+        input_html: {class: "datepicker"},
+        label: 'Date (optional)' %>
       <%#= f.input :done %>
       <div class="done-visible">
         <%= f.input :won,

@@ -12,12 +12,14 @@ Rails.application.routes.draw do
 
 
   resources :users do
+    get :autocomplete_user_full_name, on: :collection
     resources :friends
   end
 
   resources :games
 
   resources :plays do
+    get :autocomplete_game_name, on: :collection
     patch 'add_players', to: "plays#add_players"
     patch 'add_photos', to: "plays#add_photos"
     member do
