@@ -9,6 +9,7 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/lightgallery.js/dist/css/lightgallery.css">
 <!--     <link rel="stylesheet" href="../node_modules/jquery-ui/themes/base/autocomplete.css">
     <link rel="stylesheet" href="../node_modules/jquery-ui-dist/jquery-ui.css">
     <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.css"> -->
@@ -32,6 +33,17 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
+
+    <script src="../node_modules/lightgallery.js/dist/js/lightgallery.min.js"></script>
+    <script src="../node_modules/lightgallery.js/dist/js/lg-thumbnail.min.js"></script>
+    <script src="../node_modules/lightgallery.js/dist/js/lg-fullscreen.min.js"></script>
+
+    <script>
+      if (document.getElementById('lightgallery')){
+        lightGallery(document.getElementById('lightgallery'));
+      }
+    </script>
+
     <%= yield :after_js %>
   </body>
 </html>

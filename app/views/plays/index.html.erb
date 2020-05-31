@@ -7,7 +7,7 @@
           <%= link_to play_path(play) do  %>
             Game: <%= play.game.name %> - <%= play.game.company.name %>
           <% end %>
-           <%= link_to "📝", edit_play_path(play) %>
+           <%= link_to "📝", edit_play_path(play) %> photos? : <%= play.photos.attached? %>
         </p>
         <p>
           Admin:

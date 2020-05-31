@@ -3,11 +3,11 @@ import { selectorTabShow , selectorTabCarousel } from 'plugins/init_tab';
 import "../plugins/flatpickr";
 import $ from 'jquery';
 import 'select2';
-import 'jquery-ui/themes/base/autocomplete.css';
-import "jquery-ui-dist/jquery-ui.css";
 import "select2/dist/css/select2.css";
-import 'jquery-ui/ui/core';
-import 'jquery-ui/ui/widgets/autocomplete';
+// import 'jquery-ui/themes/base/autocomplete.css';
+// import "jquery-ui-dist/jquery-ui.css";
+// import 'jquery-ui/ui/core';
+// import 'jquery-ui/ui/widgets/autocomplete';
 
    var projects = [
       {

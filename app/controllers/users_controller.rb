@@ -8,5 +8,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @plays = Play.all.select { |play| @user.participations.map(&:play_id).include?(play.id) }
+    @win = @plays.select { |play| play.won && play.done }
+    @pending = @plays.select { |play| true unless play.done }
   end
 end
