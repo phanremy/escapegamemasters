@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @plays = Play.all.select { |play| @user.participations.map(&:play_id).include?(play.id) }
     @win = @plays.select { |play| play.won && play.done }
+    @lose = @plays.select { |play| play.done unless play.won }
     @pending = @plays.select { |play| true unless play.done }
   end
 end

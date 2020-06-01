@@ -1,11 +1,7 @@
 <div class="container">
-  <%= link_to "New Game", new_game_path, class:"btn btn-success mb-5" %>
+  <%= link_to "New Game / Nouvelle Salle", new_game_path, class:"btn btn-success mb-5" %>
 
-<select class="select2" name="country">
-  <% @games.each do |game| %>
-    <option value="game-<%= game.id %>"><%= game.name %> | <%= game.company.name %></option>
-  <% end %>
-</select>
+  <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-5" %>
 
   <ul>
     <% @companies.each do |company| %>
