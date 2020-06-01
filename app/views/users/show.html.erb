@@ -8,7 +8,9 @@
     </div>
     <div class="col-12 col-lg-6 py-2">
      <h2> <%= @user.first_name %> 's Plays </h2>
-     <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
+     <% if current_user == @user %>
+      <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
+     <% end %>
      <ul>
        <% @plays.each do |play| %>
          <li>
@@ -19,7 +21,7 @@
            <% play.participations.each do |participation|%>
              <% if participation.user %>
                <% if participation.user.avatar.attached? %>
-                 <%= cl_image_tag participation.user.avatar.key, class: "avatar"%>
+                 <%= cl_image_tag participation.user.avatar.key, class: "avatar", alt: participation.user.full_name%>
                <% else %>
                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
                <% end %>
