@@ -54,18 +54,20 @@ class PlaysController < ApplicationController
     @participants = @play.participations.map(&:user_id)
     @users = User.all.reject { |u| @participants.include?(u.id) }
 
-    @player = User.find_by(full_name: params[:player])
+    @player = User.search_by_fullname(params[:player])
 
     if params[:player].nil?
       @response = "Pas de participant supplementaire"
-    elsif @player
-      Participation.create(play: @play, user: @player)
+    elsif @player.count == 1
+      Participation.create(play: @play, user: @player[0])
       @response = "Player found"
-    else
+    elsif params[:player] != ""
       Participation.create(play: @play, optional_name: params[:player])
       @response = "Player not found, added dummy player"
+    else
+      @response = "Player not found"
     end
-      render :show
+      redirect_to play_path(@play)
   end
 
   def add_photos

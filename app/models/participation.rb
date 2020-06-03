@@ -3,7 +3,6 @@ class Participation < ApplicationRecord
   belongs_to :play
 
   validate :user_xor_name
-  validates_uniqueness_of :user_id, scope: [:play_id]
 
   private
 

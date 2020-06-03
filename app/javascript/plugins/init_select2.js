@@ -24,6 +24,7 @@ import "select2/dist/css/select2.css";
 
 const initSelect2 = () => {
   $('.select2').select2( {
+  placeholder: "Selectionner un utilisateur de EGM",
   width: '100%'}); // (~ document.querySelectorAll)
 };
 

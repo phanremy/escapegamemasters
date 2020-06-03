@@ -6,6 +6,13 @@
     Company: <%= @game.company.name %>
   </p>
   <p>
+    Website:
+    <%= link_to @game.company.website, @game.company.website, target:"_blank" %>
+  </p>
+  <p>
+    Address: <%= @game.company.address %>
+  </p>
+  <p>
     Rating: <%= @game.rating %>
   </p>
   <p>

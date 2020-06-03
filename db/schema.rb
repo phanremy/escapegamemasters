@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_29_230646) do
+ActiveRecord::Schema.define(version: 2020_06_03_095820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,26 @@ ActiveRecord::Schema.define(version: 2020_05_29_230646) do
     t.index ["user_id"], name: "index_plays_on_user_id"
   end
 
+  create_table "tops", force: :cascade do |t|
+    t.bigint "one_id"
+    t.text "one_comment"
+    t.bigint "two_id"
+    t.text "two_comment"
+    t.bigint "three_id"
+    t.text "three_comment"
+    t.bigint "four_id"
+    t.text "four_comment"
+    t.bigint "five_id"
+    t.text "five_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["five_id"], name: "index_tops_on_five_id"
+    t.index ["four_id"], name: "index_tops_on_four_id"
+    t.index ["one_id"], name: "index_tops_on_one_id"
+    t.index ["three_id"], name: "index_tops_on_three_id"
+    t.index ["two_id"], name: "index_tops_on_two_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -114,7 +134,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_230646) do
     t.string "location"
     t.float "longitude"
     t.float "latitude"
-    t.string "full_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

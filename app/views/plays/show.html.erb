@@ -2,37 +2,34 @@
   <div class="row">
     <div class="col-12 col-lg-6 py-2 border">
       <p>
-        Nom de la salle: <%= @play.game.name %>
-      </p>
-      <p>
-        Nom de la compagnie: <%= @play.game.company.name %>
+        Escape Game: <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
       </p>
       <p>
         Date de jeu: <%= @play.date %>
       </p>
-      <p>
+      <div class="d-flex justify-content-end">
+        <p>
+          <%= link_to "Editer la partie", edit_play_path(@play) %>
+          <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
+          <% if current_user %>
+            | <%= link_to "Retour au dashboard", user_path(current_user) %>
+          <% end %>
+        </p>
+      </div>
     </div>
     <div class="col-12 col-lg-6 py-2 bg-white border">
       <p>
         Ont joué:
         <% @play.participations.each do |participation|%>
           <% @player = participation.user %>
-          <% if @player %>
-            <%= link_to participation_path(participation), method: :delete do %>
-              <p class="btn btn-success">
-                <% if @player.avatar.attached? %>
-                  <%= cl_image_tag @player.avatar.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-                <% else %>
-                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-                <% end %>
-                <%= "#{@player.first_name} #{@player.last_name}"%>
-              </p>
+          <!-- ONLY ADMIN AND OWN PARTICIPANTS CAN DELETE PARTICIPATIONS -->
+            <% if current_user == @player  || current_user == @play.user %>
+              <%= link_to participation_path(participation), method: :delete do %>
+                <%= render 'participants', participation: participation %>
+              <% end %>
+            <% else %>
+              <%= render 'participants', participation: participation %>
             <% end %>
-          <% else %>
-            <%= link_to participation_path(participation), method: :delete do %>
-              <p class="btn btn-danger"><%= participation.optional_name %></p>
-            <% end %>
-          <% end %>
         <% end %>
       </p>
       <div class="form-player">
@@ -45,6 +42,7 @@
             %>
             <select class="select2" id="user-input" name="user" data-id-element='#play_user_id'>
               <% @users.each do |user| %>
+                <option></option>
                 <option value="user-<%= user.full_name %>" class="user-selects">
                   <%= user.full_name %>
                 </option>
@@ -97,13 +95,6 @@
       <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
         -----------
       </p>
-      <p>
-        <%= link_to "Editer la partie", edit_play_path(@play) %>
-        <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
-        <% if current_user %>
-          | <%= link_to "Retour au dashboard", user_path(current_user) %>
-        <% end %>
-      </p>
     </div>
     <div class="col-12 col-lg-6 py-2 bg-white border">
       <p>
@@ -132,7 +123,7 @@
 
 <% content_for :after_js do %>
   <script>
-    scrollLastMessageIntoView();
+
 
     App['play_<%= @play.id %>'] = App.cable.subscriptions.create({ channel: 'PlaysChannel', play_id: <%= @play.id %>}, {
       received: (data)=> {
