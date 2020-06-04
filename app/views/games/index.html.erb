@@ -3,9 +3,9 @@
 
   <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-5" %>
 
-  <ul>
+  <ul style="list-style-type:none">
     <% @companies.each do |company| %>
-    <div class="p-5 border m-3">
+    <div class="p-5 border m-3 bg-white">
       <h3><%= company.name %></h3>
       <% company.games.each do |game| %>
         <li>

@@ -1,8 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-lg-6 py-2 border">
+    <div class="col-12 col-lg-6 py-2 bg-white">
+      <h2>Mission:</h2>
       <p>
-        Escape Game: <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
+        <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
       </p>
       <p>
         Date de jeu: <%= @play.date %>
@@ -17,9 +18,9 @@
         </p>
       </div>
     </div>
-    <div class="col-12 col-lg-6 py-2 bg-white border">
+    <div class="col-12 col-lg-6 py-2 bg-white">
+      <h2>Participants:</h2>
       <p>
-        Ont joué:
         <% @play.participations.each do |participation|%>
           <% @player = participation.user %>
           <!-- ONLY ADMIN AND OWN PARTICIPANTS CAN DELETE PARTICIPATIONS -->
@@ -58,10 +59,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-lg-6 py-2 border">
-      <p>
+    <div class="col-12 col-lg-6 py-2 bg-white">
+      <h2>
         Section Score:
-      </p>
+      </h2>
         <p>
           <% if @play.won %>
             Vous avez gagné!
@@ -76,14 +77,8 @@
       <% if @play.done %>
       <% else %>
       <% end %>
-     <!--   <% if @play.won %>
-        <p>
-          Score:
-        </p>
-      <% end -%> -->
-      <p>
-        -----------
-      </p>
+
+
       <%= simple_form_for(@play) do |f| %>
         <%= f.input :photos, as: :file, input_html: { multiple: true } %>
         <%= f.submit "Ajouter des photos", class: "btn btn-primary" %>
@@ -98,13 +93,12 @@
       </div>
       <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
       <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
-        -----------
-      </p>
+
     </div>
-    <div class="col-12 col-lg-6 py-2 bg-white border">
-      <p>
-        Messages / Souvenirs de l'escape game:
-      </p>
+    <div class="col-12 col-lg-6 py-2 bg-white">
+      <h2>
+        Conversation:
+      </h2>
       <div class="container">
             <!-- <div class></div> -->
         <div class="messages">
