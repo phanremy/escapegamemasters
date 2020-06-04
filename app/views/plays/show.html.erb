@@ -62,14 +62,19 @@
       <p>
         Section Score:
       </p>
+        <p>
+          <% if @play.won %>
+            Vous avez gagné!
+          <% elsif @play.won == false %>
+            Vous avez perdu..
+          <% else %>
+            Partie non déroulé
+          <% end %>
+        </p>
+
+      <!-- No cares if done or not -->
       <% if @play.done %>
-        <p>
-          Vous avez <%= @play.won ? "gagné!" : "perdu.." %>
-        </p>
       <% else %>
-        <p>
-          Partie pas encore déroulé
-        </p>
       <% end %>
      <!--   <% if @play.won %>
         <p>

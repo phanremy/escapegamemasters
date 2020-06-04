@@ -1,11 +1,11 @@
 <div class="master-banner" id="master-banner">
   <div class="container text-center">
       <p data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</p>
-      <br><%= link_to "Click here", "", class:"btn btn-success px-5"  %>
+      <br><%= link_to "Start by Signing up!", new_user_registration_path, class:"btn btn-success px-5"  %>
   </div>
 </div>
 
-<div id="table-of-content">
+<div class="d-none" id="table-of-content">
   <%= render 'shared/table-of-content' %>
 </div>
 
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="secondary-banner" id="secondary-banner">
+<div class="secondary-banner d-none" id="secondary-banner">
   <div class="container container-home text-center">
     <h2> Want to work with us?</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit architecto rerum vitae laboriosam illo soluta, amet maiores fugiat qui animi natus corporis adipisci, impedit non labore quas! Odio, hic, sint!</p>
@@ -33,19 +33,19 @@
   </div>
 </div>
 
-<div id="portfolio-links">
+<div id="portfolio-links" class="d-none">
   <%= render 'shared/portfolio-links' %>
 </div>
 
-<div id="tabs">
+<div id="tabs" class="d-none">
   <%= render 'shared/tabs' %>
 </div>
 
-<div id="assets">
+<div id="assets" class="d-none">
   <%= render 'shared/assets' %>
 </div>
 
-<div class="py-5" id="cards">
+<div class="py-5 bg-white" id="cards">
   <div class="container container-home text-center">
     <h2> Check out our latest works</h2>
     <div class="cards">
@@ -60,7 +60,7 @@
 
 </div>
 
-<div style="background-color: white" class="py-5" id="collaborate-section">
+<div style="background-color: white" class="py-5 d-none" id="collaborate-section">
   <div class="container container-home text-center">
     <h2> Want to work with us?</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit architecto rerum vitae laboriosam illo soluta, amet maiores fugiat qui animi natus corporis adipisci, impedit non labore quas! Odio, hic, sint!</p>

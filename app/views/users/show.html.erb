@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-lg-6 py-2 bg-white border">
      <h2> <%= @user.first_name %>'s Stats </h2>
-     <p> <%= @user.first_name %> a participe a <b><%= @plays.length - @pending.length %></b> jeux (<b><%= @win.length %></b> gagnes,  <b><%= @lose.length %></b> perdus) et a <b><%= @pending.length %></b> jeux en attente </p>
+     <p> <%= @user.first_name %> a participé à <b><%= @plays.length - @pending.length %></b> missions (<b><%= @win.length %></b> gagnées,  <b><%= @lose.length %></b> perdues) et a <b><%= @pending.length %></b> missions en attente.</p>
      <% if @user.top %>
        <p> <%= @user.first_name %> recommande: </p>
        <ol>
@@ -57,14 +57,17 @@
              <% end %>
            <% end %>
            Status:
-           <% if play.done %>
-             <% if play.won %>
-               <b style="color:green">WIN</b>
-             <% else %>
-               <b style="color:red">LOSE</b>
-             <% end %>
+           <% if play.won %>
+             <b style="color:green">WIN</b>
+           <% elsif play.won == false %>
+             <b style="color:red">LOSE</b>
            <% else %>
-           <b>PENDING</b>
+
+             <b>PENDING</b>
+            <!-- NO CARE GIVEN IF PLAY DONE OR NOT -->
+             <% if play.done %>
+             <% else %>
+             <% end %>
            <% end %>
          </li>
        <% end %>

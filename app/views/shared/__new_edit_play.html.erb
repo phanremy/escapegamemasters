@@ -6,7 +6,7 @@
         <%= f.input :game_id,
         input_html: {class: "game-id"},
         include_blank:false,
-        label: 'Game / Salle:',
+        label: 'Game / Mission:',
         as: :hidden %>
         <select class="select2" id="game-input" name="game" data-id-element='#play_game_id'>
           <% @games.each do |game| %>
