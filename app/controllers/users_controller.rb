@@ -12,5 +12,6 @@ class UsersController < ApplicationController
     @win = @plays.select { |play| play.won && play.done }
     @lose = @plays.select { |play| play.done unless play.won }
     @pending = @plays.select { |play| true unless play.done }
+    @user.top ? @top = @user.top : @top = Top.new
   end
 end

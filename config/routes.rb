@@ -9,11 +9,12 @@ Rails.application.routes.draw do
   resources :companies
   resources :participations, only: :destroy
   resources :messages, only: :destroy
-
+  resources :tops, only: :destroy
 
   resources :users do
     get :autocomplete_user_full_name, on: :collection
     resources :friends
+    resources :tops, only: [:new, :create, :edit, :update]
   end
 
   resources :games

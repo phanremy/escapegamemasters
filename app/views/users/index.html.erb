@@ -6,7 +6,7 @@
           <% if user.avatar.attached? %>
             <%= cl_image_tag user.avatar.key, class: "avatar"%>
           <% else %>
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
+            <%= image_tag "user_avatar.png", class: "avatar" %>
           <% end %>
           <%= user.first_name.capitalize %> <%= user.last_name.capitalize %> -
         <% end %>

@@ -1,12 +1,39 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-lg-6 py-2">
+    <div class="col-12 col-lg-6 py-2 bg-white border">
      <h2> <%= @user.first_name %>'s Stats </h2>
      <p> <%= @user.first_name %> a participe a <b><%= @plays.length - @pending.length %></b> jeux (<b><%= @win.length %></b> gagnes,  <b><%= @lose.length %></b> perdus) et a <b><%= @pending.length %></b> jeux en attente </p>
-     <p> Rem recommande: </p>
+     <% if @user.top %>
+       <p> <%= @user.first_name %> recommande: </p>
+       <ol>
+        <% if @top.one %>
+         <%= render 'top', top: @top.one, comment: @top.one_comment %>
+          <% if @top.two %>
+           <%= render 'top', top: @top.two, comment: @top.two_comment %>
+            <% if @top.three %>
+             <%= render 'top', top: @top.three, comment: @top.three_comment %>
+              <% if @top.four %>
+               <%= render 'top', top: @top.four, comment: @top.four_comment %>
+                <% if @top.five %>
+                 <%= render 'top', top: @top.five, comment: @top.five_comment %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+       </ol>
+       <% if current_user == @user%>
+          <%= link_to "Editer Top", edit_user_top_path(current_user, @top) %> |
+          <%= link_to "Supprimer Top", top_path(@top), method: :delete, data: { confirm: 'Are you fucking sure?' }  %>
+       <% end %>
+     <% elsif (current_user == @user) && (@user.participations.count > 5) %>
+        <%= link_to "Creer ton Top 5", new_user_top_path(current_user), class: "btn btn-success" %>
+     <% else %>
+      <em>Register 5 plays and create your top 5</em>
+     <% end %>
 
     </div>
-    <div class="col-12 col-lg-6 py-2">
+    <div class="col-12 col-lg-6 py-2 bg-white border">
      <h2> <%= @user.first_name %> 's Plays </h2>
      <% if current_user == @user %>
       <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
@@ -23,10 +50,10 @@
                <% if participation.user.avatar.attached? %>
                  <%= cl_image_tag participation.user.avatar.key, class: "avatar", alt: participation.user.full_name%>
                <% else %>
-                 <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
+                 <%= image_tag "user_avatar.png", class: "avatar" %>
                <% end %>
              <% else %>
-               <%= image_tag "https://kitt.lewagon.com/placeholder/users/random", class: "avatar" %>
+               <%= image_tag "user_avatar.png", class: "avatar" %>
              <% end %>
            <% end %>
            Status:

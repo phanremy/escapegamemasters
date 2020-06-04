@@ -10,7 +10,7 @@
                 input_html: { autocomplete: "email" }%>
     <%= f.input :password,
                 required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                hint: ("#{@minimum_password_length} figures only / 4 chiffres seulement"),
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
                 required: true,
@@ -19,7 +19,10 @@
                 required: true %>
     <%= f.input :last_name,
                 required: true %>
-    <%= f.input :birthday %>
+    <%= f.input :birthday,
+      as: :string,
+      input_html: {class: "datepicker"},
+      label: 'Birthday' %>
     <%= f.input :location %>
     <%= f.input :avatar, as: :file %>
   </div>

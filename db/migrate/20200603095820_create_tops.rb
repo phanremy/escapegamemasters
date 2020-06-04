@@ -1,6 +1,7 @@
 class CreateTops < ActiveRecord::Migration[5.2]
   def change
     create_table :tops do |t|
+      t.references :user, foreign_key: true
       t.references :one
       t.text :one_comment
       t.references :two

@@ -8,6 +8,8 @@ class PlaysController < ApplicationController
 
   def show
     @play = Play.includes(messages: :user).find(params[:id])
+
+    # check the users which are not already included in the play
     @participants = @play.participations.map(&:user_id)
     @users = User.all.reject { |u| @participants.include?(u.id) }
   end

@@ -1,0 +1,47 @@
+<div class="container mb-3">
+  <%= simple_form_for([@user, @top]) do |f| %>
+    <h2>Top 5</h2>
+
+    <div class="mt-5" id="one">
+      <h3>1</h3>
+      <%= f.association :one,
+        collection: @games,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        label: false %>
+      <%= f.input :one_comment, label: "Commentaire:" %>
+    </div>
+    <div class="" id="two">
+      <h3>2</h3>
+      <%= f.association :two,
+        collection: @games,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        label: false %>
+      <%= f.input :two_comment, label: "Commentaire:" %>
+    </div>
+    <div class="" id="three">
+      <h3>3</h3>
+      <%= f.association :three,
+        collection: @games,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        label: false %>
+      <%= f.input :three_comment, label: "Commentaire:" %>
+    </div>
+    <div class="" id="four">
+      <h3>4</h3>
+      <%= f.association :four,
+        collection: @games,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        label: false %>
+      <%= f.input :four_comment, label: "Commentaire:" %>
+    </div>
+    <div class="" id="five">
+      <h3>5</h3>
+      <%= f.association :five,
+        collection: @games,
+        label_method: lambda {|game| "#{game.name} | #{game.company.name}"},
+        label: false %>
+      <%= f.input :five_comment, label: "Commentaire:" %>
+    </div>
+    <%= f.submit %>
+  <% end %>
+</div>

@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2020_06_03_095820) do
   end
 
   create_table "tops", force: :cascade do |t|
+    t.bigint "user_id"
     t.bigint "one_id"
     t.text "one_comment"
     t.bigint "two_id"
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_06_03_095820) do
     t.index ["one_id"], name: "index_tops_on_one_id"
     t.index ["three_id"], name: "index_tops_on_three_id"
     t.index ["two_id"], name: "index_tops_on_two_id"
+    t.index ["user_id"], name: "index_tops_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -147,4 +149,5 @@ ActiveRecord::Schema.define(version: 2020_06_03_095820) do
   add_foreign_key "participations", "users"
   add_foreign_key "plays", "games"
   add_foreign_key "plays", "users"
+  add_foreign_key "tops", "users"
 end
