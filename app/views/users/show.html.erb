@@ -1,4 +1,21 @@
+<% @admin = (current_user == @user) %>
+<% @signed = !(current_user.nil?) %>
 <div class="container">
+  <div class="d-flex align-items-center my-5">
+    <div>
+      <% if @user.avatar.attached? %>
+        <%= cl_image_tag @user.avatar.key, class: "avatar-profil" %>
+      <% else %>
+        <%= image_tag "user_avatar.png", class: "avatar-profil" %>
+      <% end %>
+    </div>
+    <div class="ml-5">
+      <h1>
+        <%= @user.full_name %>
+      </h1>
+      <h4><em>Escape Game Master</em></h4>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12 col-lg-6 py-2 user-show-cards" style="min-height:30vh">
       <div class="user-show-card-title">
@@ -7,13 +24,13 @@
       <div class="user-show-card-content container">
          <% @done_count = @plays.length - @pending.length  %>
          <p>
-         <%= @user.first_name %> a participé à <b><%= @done_count %></b> mission<%= @done_count <=1 ? "" : "s" %> (<b><%= @win.length %></b> gagnée<%= @win.length <=1 ? "" : "s" %>,  <b><%= @lose.length %></b> perdue<%= @lose.length <=1 ? "" : "s" %>) et a <b><%= @pending.length %></b> mission<%= @pending.length <=1 ? "" : "s" %> en attente.
+         <%= @admin ? "Tu" : @user.first_name %> a<%= @admin ? "s" : "" %> participé à <b><%= @done_count %></b> mission<%= @done_count <=1 ? "" : "s" %> (<b><%= @win.length %></b> gagnée<%= @win.length <=1 ? "" : "s" %>,  <b><%= @lose.length %></b> perdue<%= @lose.length <=1 ? "" : "s" %>) et a<%= @admin ? "s" : "" %> <b><%= @pending.length %></b> mission<%= @pending.length <=1 ? "" : "s" %> en attente.
          </p>
 
          <% if @user.top %>
            <ul style="list-style-type:none">
              <li>
-              <%= @user.first_name %> recommande:
+              <%= @admin ? "Tu" : @user.first_name %> recommande<%= @admin ? "s" : "" %>:
              </li>
            </ul>
            <ol>
@@ -57,50 +74,16 @@
           <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
         </p>
        <% end %>
-       <ul style="list-style-type:none">
+       <ul style="list-style-type:none; padding: 0px">
          <% @plays.each do |play| %>
-           <li>
-            <% if current_user %>
-              <% @participants = play.participations.map(&:user_id) %>
-              <% if @participants.include?(current_user.id) %>
-               <%= link_to play_path(play) do  %>
-                 <%= play.game.name %> - <%= play.game.company.name %>
-               <% end %>
-               <%= link_to "📝", edit_play_path(play) %>
-              <% else %>
-                <%= play.game.name %> - <%= play.game.company.name %>
-              <% end -%>
-            <% else %>
-             <%= play.game.name %> - <%= play.game.company.name %>
-            <% end %>
-
-            -
-
-             <% if play.won %>
-               <b style="color:green">WIN</b>
-             <% elsif play.won == false %>
-               <b style="color:red">LOSE</b>
-             <% else %>
-               <b>PENDING</b>
-              <!-- NO CARE GIVEN IF PLAY DONE OR NOT -->
-               <% if play.done %>
-               <% else %>
-               <% end %>
-             <% end %>
-
-             <% play.participations.first(5).each do |participation|%>
-               <% if participation.user %>
-                 <% if participation.user.avatar.attached? %>
-                   <%= cl_image_tag participation.user.avatar.key, class: "avatar", alt: participation.user.full_name%>
-                 <% else %>
-                   <%= image_tag "user_avatar.png", class: "avatar" %>
-                 <% end %>
-               <% else %>
-                 <%= image_tag "user_avatar.png", class: "avatar" %>
-               <% end %>
-             <% end %>
-             <%= play.participations.count > 5 ? "..." : "" %>
-           </li>
+          <% @participants = play.participations.map(&:user_id) %>
+          <% if @signed && @participants.include?(current_user.id) %>
+            <%= link_to play_path(play), class:"play-link" do  %>
+              <%= render "shared/_game_card", play: play %>
+            <% end -%>
+          <% else %>
+            <%= render "shared/_game_card", play: play %>
+          <% end %>
          <% end %>
        </ul>
      </div>
