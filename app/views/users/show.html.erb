@@ -24,9 +24,8 @@
       <div class="user-show-card-content container">
          <% @done_count = @plays.length - @pending.length  %>
          <p>
-         <%= @admin ? "Tu" : @user.first_name %> a<%= @admin ? "s" : "" %> participé à <b><%= @done_count %></b> mission<%= @done_count <=1 ? "" : "s" %> (<b><%= @win.length %></b> gagnée<%= @win.length <=1 ? "" : "s" %>,  <b><%= @lose.length %></b> perdue<%= @lose.length <=1 ? "" : "s" %>) et a<%= @admin ? "s" : "" %> <b><%= @pending.length %></b> mission<%= @pending.length <=1 ? "" : "s" %> en attente.
+         <%= @admin ? "Tu" : @user.first_name %> a<%= @admin ? "s" : "" %> participé à <b><%= @one %></b> mission<%= @one <=1 ? "" : "s" %> (<b><%= @win.length %></b> gagnée<%= @win.length <=1 ? "" : "s" %>,  <b><%= @lose.length %></b> perdue<%= @lose.length <=1 ? "" : "s" %>) et a<%= @admin ? "s" : "" %> <b><%= @none %></b> mission<%= @none <=1 ? "" : "s" %> en attente.
          </p>
-
          <% if @user.top %>
            <ul style="list-style-type:none">
              <li>
