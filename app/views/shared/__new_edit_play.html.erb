@@ -1,8 +1,8 @@
 <div class="container">
   <h1>New Play / Nouvelle Partie</h1>
-  <div class="container">
+  <div class="container my-5">
     <%= simple_form_for(@play) do |f| %>
-      <div class="mb-4">
+      <div class="my-4">
         <%= f.input :game_id,
         input_html: {class: "game-id"},
         include_blank:false,
@@ -13,25 +13,29 @@
             <option value="game-<%= game.id %>" class="game-selects"><%= game.name %> | <%= game.company.name %></option>
           <% end %>
         </select>
+        <div class="d-flex justify-content-end align-items-center">
+          <%= link_to "La mission n'existe pas? Enregister une nouvelle en cliquant ici", new_game_path, class:"btn btn-link"  %>
+        </div>
       </div>
 
-
-      <%= f.input :date,
-        as: :string,
-        input_html: {class: "datepicker"},
-        label: 'Date (optional)' %>
-      <%#= f.input :done %>
-      <div class="done-visible">
+      <div class="my-4">
+        <%= f.input :date,
+          as: :string,
+          input_html: {class: "datepicker"},
+          label: 'Date [optional]' %>
+        <%#= f.input :done %>
+      </div>
+      <div class="done-visible my-4">
         <%= f.input :won,
         as: :radio_buttons,
         collection: [[true, 'Win / Gagné'], [false, 'Lose / Perdu']],
         label_method: :second,
         value_method: :first,
-        label: 'Result (Win/Lose) / Résultat (Gagné/Perdu):' %>
+        label: 'Result (Win/Lose) / Résultat (Gagné/Perdu) [optional]' %>
       </div>
       <%#= f.input :photos, as: :file, input_html: { multiple: true } %>
       <div class="d-flex justify-content-center">
-        <%= f.submit "Enregistrer", class: "btn btn-success" %>
+        <%= f.submit "Enregistrer", class: "btn btn-success btn-lg btn-block mt-4" %>
       </div>
     <% end %>
   </div>

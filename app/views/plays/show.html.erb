@@ -1,3 +1,7 @@
+<% @admin = (current_user == @play.user) %>
+<% @signed = !(current_user.nil?) %>
+<% @participant = @signed && @participants.include?(current_user.id) %>
+
 <div class="container">
   <div class="row">
     <div class="col-12 col-lg-6 py-2 user-show-cards">
@@ -29,15 +33,19 @@
         <% else %>
         <% end %>
 
-        <div class="d-flex justify-content-end">
-          <p>
-            <%= link_to "Editer la partie", edit_play_path(@play) %>
-            <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
-            <% if current_user %>
-              | <%= link_to "Retour au dashboard", user_path(current_user) %>
-            <% end %>
-          </p>
-        </div>
+        <% if @participant %>
+          <div class="d-flex justify-content-end mt-5">
+            <p>
+              <% if @admin %>
+                <%= link_to "Editer la partie", edit_play_path(@play) %> |
+              <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
+              <% else %>
+                Mission édité par <%= @play.user.full_name %> |
+              <% end %>
+              <%= link_to "Retour au dashboard", user_path(current_user) %>
+            </p>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="col-12 col-lg-6 py-2 user-show-cards">
@@ -58,7 +66,8 @@
             <% end %>
           <% end %>
         </div>
-        <div class="form-player">
+        <% if @participant %>
+          <div class="form-player">
             <%= form_tag play_add_players_path(@play), method: :patch do %>
               <%= text_field_tag :player,
                 params[:player],
@@ -82,7 +91,9 @@
             <% unless @response.nil? %>
               <%= @response %>
             <% end %>
-        </div>
+          </div>
+        <% end %>
+
       </div>
     </div>
   </div>
@@ -94,13 +105,15 @@
         </h2>
       </div>
       <div class="user-show-card-content container">
-        <div class="mb-3">
-          <%= simple_form_for(@play) do |f| %>
-            <%= f.input :photos, as: :file, input_html: { multiple: true }, label: false %>
-            <%= f.submit "Ajouter des photos", class: "btn btn-success" %>
-            <%= link_to "Supprimer des photos? (in progress)", "#", class: "btn btn-link" %>
-          <% end %>
-        </div>
+        <% if @participant %>
+          <div class="mb-3">
+            <%= simple_form_for(@play) do |f| %>
+              <%= f.input :photos, as: :file, input_html: { multiple: true }, label: false %>
+              <%= f.submit "Ajouter des photos", class: "btn btn-success" %>
+              <%= link_to "Supprimer des photos? (in progress)", "#", class: "btn btn-link" %>
+            <% end %>
+          </div>
+        <% end %>
         <h4>Gallerie</h4>
         <div class="d-flex flex-wrap align-items-center justify-content-center my-3" id="lightgallery">
           <% if @play.photos.count == 0 %>
@@ -133,7 +146,9 @@
         <div id="create-message">
           <%= simple_form_for [@play, Message.new], remote: true do |f| %>
             <%= f.input :content, label: false %>
-            <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
+            <% if @participant %>
+              <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
+            <% end %>
           <% end %>
         </div>
       </div>

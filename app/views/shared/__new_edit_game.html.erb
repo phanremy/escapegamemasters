@@ -1,11 +1,18 @@
 <div class="container">
   <h2>New Game / Nouvelle Mission</h2>
-  <%= simple_form_for [ @game ] do |f| %>
-    <%= f.input :name %>
-    <%= f.association :company%>
-<!--<%= f.input :description, as: :text %>
-    <%= f.input :rating, collection: 1..5 %>
-    <%= f.input :price %> -->
-    <%= f.submit "Submit", class: "btn btn-primary" %>
-  <% end %>
+  <div class="my-5">
+    <%= simple_form_for [ @game ] do |f| %>
+      <%= f.input :name %>
+      <%= f.association :company,
+        collection: Company.all.order(:name) %>
+  <!--<%= f.input :description, as: :text %>
+      <%= f.input :rating, collection: 1..5 %>
+      <%= f.input :price %> -->
+      <div class="d-flex justify-content-end align-items-center">
+        <%= link_to "La boite n'existe pas? Enregister une nouvelle en cliquant ici", new_company_path, class:"btn btn-link"  %>
+      </div>
+      <%= f.submit "Register a new game / Enregistrer une nouvelle mission", class: "btn btn-success mt-4" %>
+    <% end %>
+
+  </div>
 </div>

@@ -1,9 +1,12 @@
 <div class="container">
-  <%= simple_form_for(@company) do |f| %>
-    <%= f.input :name %>
-    <%= f.input :address %>
-    <%= f.input :description, as: :text %>
-    <%= f.input :website %>
-    <%= f.submit %>
-  <% end %>
+  <h2>New Company / Nouvelle Boite</h2>
+  <div class="my-5">
+    <%= simple_form_for(@company) do |f| %>
+      <%= f.input :name %>
+      <%= f.input :address %>
+      <%= f.input :description, as: :text %>
+      <%= f.input :website %>
+      <%= f.submit "Register a new company / Enregistrer une nouvelle boite", class:"btn btn-success mt-4"%>
+    <% end %>
+  </div>
 </div>

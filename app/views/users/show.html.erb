@@ -40,7 +40,9 @@
          <% elsif (current_user == @user) && (@user.participations.count >= 5) %>
             <%= link_to "Creer ton Top 5", new_user_top_path(current_user), class: "btn btn-success" %>
          <% elsif (current_user == @user) && (@user.participations.count < 5)%>
-            <em>Register 5 plays and create your top 5</em>
+            <p>
+              <em>Register 5 plays and create your top 5</em>
+            </p>
          <% end %>
       </div>
     </div>
@@ -51,7 +53,9 @@
      </div>
      <div class="user-show-card-content container">
        <% if current_user == @user %>
-        <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
+        <p>
+          <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
+        </p>
        <% end %>
        <ul style="list-style-type:none">
          <% @plays.each do |play| %>
@@ -83,7 +87,8 @@
                <% else %>
                <% end %>
              <% end %>
-             <% play.participations.each do |participation|%>
+
+             <% play.participations.first(5).each do |participation|%>
                <% if participation.user %>
                  <% if participation.user.avatar.attached? %>
                    <%= cl_image_tag participation.user.avatar.key, class: "avatar", alt: participation.user.full_name%>
@@ -94,7 +99,7 @@
                  <%= image_tag "user_avatar.png", class: "avatar" %>
                <% end %>
              <% end %>
-
+             <%= play.participations.count > 5 ? "..." : "" %>
            </li>
          <% end %>
        </ul>
