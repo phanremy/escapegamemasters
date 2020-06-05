@@ -50,13 +50,17 @@
               <% end %>
             <% end %>
            </ol>
-           <% if current_user == @user%>
-              <%= link_to "Editer Top", edit_user_top_path(current_user, @top) %> |
-              <%= link_to "Supprimer Top", top_path(@top), method: :delete, data: { confirm: 'Are you fucking sure?' }  %>
+           <% if @admin %>
+              <div class="d-flex align-items-center justify-content-end">
+                <div>
+                  <%= link_to "Editer Top", edit_user_top_path(current_user, @top) %> |
+                  <%= link_to "Supprimer Top", top_path(@top), method: :delete, data: { confirm: 'Are you fucking sure?' }  %>
+                </div>
+              </div>
            <% end %>
-         <% elsif (current_user == @user) && (@user.participations.count >= 5) %>
+         <% elsif @admin && (@user.participations.count >= 5) %>
             <%= link_to "Creer ton Top 5", new_user_top_path(current_user), class: "btn btn-success" %>
-         <% elsif (current_user == @user) && (@user.participations.count < 5)%>
+         <% elsif @admin && (@user.participations.count < 5)%>
             <p>
               <em>Register 5 plays and create your top 5</em>
             </p>
@@ -70,9 +74,9 @@
      </div>
      <div class="user-show-card-content container">
        <% if current_user == @user %>
-        <p>
+
           <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
-        </p>
+
        <% end %>
        <ul style="list-style-type:none; padding: 0px">
          <% @plays.each do |play| %>
