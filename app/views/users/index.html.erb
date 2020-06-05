@@ -1,16 +1,15 @@
 <div class="container">
-  <ul>
+  <ul style="list-style-type:none">
     <% @users.each do |user| %>
       <li>
         <%= link_to user_path(user) do  %>
           <% if user.avatar.attached? %>
-            <%= cl_image_tag user.avatar.key, class: "avatar"%>
+            <%= cl_image_tag user.avatar.key, class: "avatar-large"%>
           <% else %>
-            <%= image_tag "user_avatar.png", class: "avatar" %>
+            <%= image_tag "user_avatar.png", class: "avatar-large" %>
           <% end %>
-          <%= user.first_name.capitalize %> <%= user.last_name.capitalize %> -
+          <%= user.first_name.capitalize %> <%= user.last_name.capitalize %>
         <% end %>
-        <%= user.email %>
         <% if user == current_user %>
           - <small><b><i>YOU</i></b></small> <%= link_to "📝", edit_user_registration_path(user) %>
         <% end %>

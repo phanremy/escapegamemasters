@@ -6,11 +6,29 @@
       </div>
       <div class="user-show-card-content container">
         <p>
-          <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
+          <i class="fas fa-thumbtack mr-2" style="color:orange"></i> <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
         </p>
+        <% if @play.date %>
+          <p>
+            <i class="far fa-calendar-alt mr-2" style="color:blue"></i> <%= @play.date.strftime("%A, %b %d") %>
+          </p>
+        <% end %>
         <p>
-          Date de jeu: <%= @play.date %>
+
+          <% if @play.won %>
+            <i class="fas fa-check-circle mr-2" style="color:green"></i> Vous avez gagné! (Score non renseigné)
+          <% elsif @play.won == false %>
+            <i class="fas fa-check-circle mr-2" style="color:red"></i> Vous avez perdu.. (Score non renseigné)
+          <% else %>
+            <i class="fas fa-check-circle mr-2"></i> Partie non déroulé
+          <% end %>
         </p>
+
+        <!-- No cares if done or not -->
+        <% if @play.done %>
+        <% else %>
+        <% end %>
+
         <div class="d-flex justify-content-end">
           <p>
             <%= link_to "Editer la partie", edit_play_path(@play) %>
@@ -27,17 +45,17 @@
         <h2><i class="fas fa-users"></i> Participants</h2>
       </div>
       <div class="user-show-card-content container">
-        <div class="participant-card">
+        <div class="participant-cards">
           <% @play.participations.each do |participation|%>
             <% @player = participation.user %>
             <!-- ONLY ADMIN AND OWN PARTICIPANTS CAN DELETE PARTICIPATIONS -->
-              <% if current_user == @player  || current_user == @play.user %>
-                <%= link_to participation_path(participation), method: :delete do %>
-                  <%= render 'participants', participation: participation %>
-                <% end %>
-              <% else %>
+            <% if @player.nil? %>
                 <%= render 'participants', participation: participation %>
-              <% end %>
+            <% else %>
+              <%= link_to user_path(@player) do  %>
+                <%= render 'participants', participation: participation %>
+              <% end -%>
+            <% end %>
           <% end %>
         </div>
         <div class="form-player">
@@ -46,7 +64,7 @@
                 params[:player],
                 data: { autocomplete: autocomplete_user_full_name_users_path },
                 class: "form-control player-field-tag",
-                placeholder: "Ecrivez le nom de la personne ou cherchez dans la liste"
+                placeholder: "Ecrivez le nom de la personne ou cherchez dans la liste ci-dessous"
               %>
               <select class="select2" id="user-input" name="user" data-id-element='#play_user_id'>
                 <% @users.each do |user| %>
@@ -56,7 +74,10 @@
                   </option>
                 <% end %>
               </select>
-              <%= submit_tag "Ajouter un participant", class: "btn btn-primary" %>
+              <div class="mt-3">
+                <%= submit_tag "Ajouter un participant", class: "btn btn-success" %>
+                <%= link_to "Supprimer des participants? (in progress)", "#", class: "btn btn-link" %>
+              </div>
             <% end %>
             <% unless @response.nil? %>
               <%= @response %>
@@ -69,42 +90,33 @@
     <div class="col-12 col-lg-6 py-2 user-show-cards">
       <div class="user-show-card-title">
         <h2>
-          <i class="far fa-check-circle"></i> Score
+          <i class="fas fa-camera-retro"></i> Photos
         </h2>
       </div>
       <div class="user-show-card-content container">
-        <p>
-          <% if @play.won %>
-            Vous avez gagné! (Score non renseigné)
-          <% elsif @play.won == false %>
-            Vous avez perdu.. (Score non renseigné)
-          <% else %>
-            Partie non déroulé
-          <% end %>
-        </p>
-
-        <!-- No cares if done or not -->
-        <% if @play.done %>
-        <% else %>
-        <% end %>
-
-
-        <%= simple_form_for(@play) do |f| %>
-          <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-          <%= f.submit "Ajouter des photos", class: "btn btn-primary" %>
-        <% end %>
-        <div class="d-flex flex-wrap my-3" id="lightgallery">
-          <% @play.photos.each do |photo| %>
-            <%#= link_to delete_photo_play_url(@play, photo.id), method: :delete, data: { confirm: 'Are you fucking sure?' } do%>
-            <%= link_to cl_image_path(photo.key) do %>
-              <%= cl_image_tag photo.key, class: "p-2", height: 200, width: 300, crop: :fill %>
-            <% end %>
+        <div class="mb-3">
+          <%= simple_form_for(@play) do |f| %>
+            <%= f.input :photos, as: :file, input_html: { multiple: true }, label: false %>
+            <%= f.submit "Ajouter des photos", class: "btn btn-success" %>
+            <%= link_to "Supprimer des photos? (in progress)", "#", class: "btn btn-link" %>
           <% end %>
         </div>
-        <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
-        <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
+        <h4>Gallerie</h4>
+        <div class="d-flex flex-wrap align-items-center justify-content-center my-3" id="lightgallery">
+          <% if @play.photos.count == 0 %>
+              <p>Pas de photos</p>
+          <% else %>
+            <% @play.photos.each do |photo| %>
+              <%#= link_to delete_photo_play_url(@play, photo.id), method: :delete, data: { confirm: 'Are you fucking sure?' } do%>
+              <%= link_to cl_image_path(photo.key) do %>
+                <%= cl_image_tag photo.key, class: "p-2", height: 200, width: 300, crop: :fill %>
+              <% end %>
+            <% end %>
+            <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
+            <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
+          <% end %>
+        </div>
       </div>
-
     </div>
     <div class="col-12 col-lg-6 py-2 user-show-cards">
       <div class="user-show-card-title">
@@ -113,7 +125,6 @@
         </h2>
       </div>
       <div class="user-show-card-content container">
-            <!-- <div class></div> -->
         <div class="messages">
           <% @play.messages.each do |message| %>
             <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
@@ -122,7 +133,7 @@
         <div id="create-message">
           <%= simple_form_for [@play, Message.new], remote: true do |f| %>
             <%= f.input :content, label: false %>
-            <%= f.submit "⬅️ Submit", class:"right my-2" %>
+            <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
           <% end %>
         </div>
       </div>

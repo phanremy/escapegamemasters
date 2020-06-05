@@ -31,8 +31,25 @@
   }
 }
 
-.participant-card {
-  p {
+.participant-cards {
+
+  display: flex;
+  flex-wrap: wrap;
+  align-content:flex-start;
+  margin-bottom: 30px;
+
+  p, div {
     padding:6px 12px;
+    margin: 5px;
   }
+}
+
+.avatar {
+  border: 1px solid rgba(0,0,0,0.2) !important;
+}
+
+.avatar-large {
+  height: 56px;
+  border: 2px solid rgba(0,0,0,0.2) !important;
+
 }
