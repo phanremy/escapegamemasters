@@ -1,0 +1,38 @@
+.user-show-cards {
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.1);
+  padding: 0px !important;
+  margin-bottom: 5px;
+}
+
+.user-show-card-title {
+  background-color: #E8D33F;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 30px;
+
+
+  h2 {
+    margin: 0px;
+    font-size: 1.6rem;
+    padding-left: 20px;
+  }
+}
+
+.user-show-card-content {
+  padding-bottom: 20px;
+
+  p {
+    padding-left: 40px;
+  }
+}
+
+.participant-card {
+  p {
+    padding:6px 12px;
+  }
+}
