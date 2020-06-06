@@ -45,7 +45,6 @@ class PlaysController < ApplicationController
   def update
     # DOES NOT WORK IF DATE BEFORE IS REMOVED
     @play = Play.find(params[:id])
-    raise
     if @play.update(play_params)
       unless @play.date.nil?
         @play.date <= Date.today ? @play.update(done: true) : @play.update(done: false)
