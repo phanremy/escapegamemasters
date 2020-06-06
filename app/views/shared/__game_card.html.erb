@@ -1,5 +1,9 @@
 <li>
-  <div class="game-card p-1 my-1">
+  <% if @signed && @participants.include?(current_user.id) %>
+    <div class="game-card p-1 my-1" style="background-color: #E8D33F;">
+  <% else %>
+    <div class="game-card p-1 my-1">
+  <% end -%>
     <div class="row">
       <div class="col-9 col-lg-9">
          <%= play.game.name %> - <%= play.game.company.name %>

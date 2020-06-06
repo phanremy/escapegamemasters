@@ -43,12 +43,24 @@ class PlaysController < ApplicationController
   end
 
   def update
+    # DOES NOT WORK IF DATE BEFORE IS REMOVED
     @play = Play.find(params[:id])
+    raise
     if @play.update(play_params)
+      unless @play.date.nil?
+        @play.date <= Date.today ? @play.update(done: true) : @play.update(done: false)
+      end
       redirect_to play_path(@play)
     else
       render :edit
     end
+  end
+
+  def destroy
+    @play = Play.find(params[:id])
+    @user = @play.user
+    @play.destroy
+    redirect_to user_path(@user)
   end
 
   def add_players

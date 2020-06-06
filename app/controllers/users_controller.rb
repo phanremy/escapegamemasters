@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   autocomplete :users, :full_name, full: true
 
   def index
@@ -9,7 +8,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @plays = Play.all.select { |play| @user.participations.map(&:play_id).include?(play.id) }
-    @win = @plays.select { |play| play.won }
+
+    # GAMES WHERE USER IS ADMIN BUT NOT PARTICIPANT, NOT COUNTED IN STATS
+    @admin_only = @user.plays.reject { |play| @plays.map(&:id).include?(play.id) }
+
+    @win = @plays.select(&:won)
     @lose = @plays.select { |play| play.won == false }
     @one = @win.count + @lose.count
     @none = @plays.count - @one
