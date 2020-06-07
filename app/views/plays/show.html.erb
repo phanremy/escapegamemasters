@@ -216,14 +216,14 @@
             <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
           <% end %>
         </div>
-        <div id="create-message">
-          <%= simple_form_for [@play, Message.new], remote: true do |f| %>
-            <%= f.input :content, label: false %>
-            <% if @participant %>
-              <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
-            <% end %>
-          <% end %>
-        </div>
+        <% if @participant %>
+          <div id="create-message">
+            <%= simple_form_for [@play, Message.new], remote: true do |f| %>
+              <%= f.input :content, label: false %>
+                <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
+              <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
 
