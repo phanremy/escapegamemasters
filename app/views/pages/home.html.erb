@@ -1,7 +1,9 @@
-<div class="master-banner" id="master-banner">
+<div class="master-banner" id="master-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path("michael-jasmund-escape.jpg") %>); background-size: cover;">
   <div class="container text-center">
       <p data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</p>
-      <br><%= link_to "Start by Signing up!", new_user_registration_path, class:"btn btn-success px-5"  %>
+      <% unless user_signed_in? %>
+        <br><%= link_to "Start by Signing up!", new_user_registration_path, class:"btn btn-success px-5"  %>
+       <% end %>
   </div>
 </div>
 
@@ -16,14 +18,14 @@
       <div class="col-12 col-lg-6 py-2 bg-white">
         <div>Bienvenue :)</div>
         <div>Un grand merci pour tester mon site en beta!</div>
-        <div>N'hesitez pas a rajouter des escapes games qui peuvent etre manquantes de la base de donnee, je vous en remercie!</div>
+        <div>N'hesitez pas à rajouter des escapes games qui peuvent etre manquantes de la base de donnée, je vous en remercie!</div>
       </div>
       <div class="col-12 col-lg-6 py-2 bg-white">
-        <div>Mise a jour a venir:</div>
+        <div>Mise à jour à venir:</div>
         <ul>
           <li>Statistiques</li>
-          <li>Export en format tableau des donnees</li>
-          <li>Systeme de notation</li>
+          <li>Export en format tableau des données</li>
+          <li>Système de notation</li>
           <li>Plus d'infos sur les salles d'escape game avec des tags</li>
           <li>Site completement en francais</li>
         </ul>
@@ -54,13 +56,15 @@
 
 <div class="py-5 bg-white" id="cards">
   <div class="container container-home text-center">
-    <h2> Check out our latest works</h2>
+    <h2> <%= Play.all.count %> Missions Enregistrés, <%= Game.all.count %> Escape Games à decouvrir!</h2>
     <div class="cards">
-      <% @url_image_path = "https://source.unsplash.com/random/200x200" %>
+      <% @play = Play.all.reject { |p| p.photos.sample.nil? }.sample  %>
+      <% @play_to_reject1 = @play %>
       <%= render "shared/vertical-card" %>
-      <% @url_image_path = "https://source.unsplash.com/random/200x199" %>
+      <% @play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 }.sample  %>
+      <% @play_to_reject2 = @play %>
       <%= render "shared/vertical-card" %>
-      <% @url_image_path = "https://source.unsplash.com/random/199x199" %>
+      <% @play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 || p == @play_to_reject2}.sample  %>
       <%= render "shared/vertical-card" %>
     </div>
   </div>

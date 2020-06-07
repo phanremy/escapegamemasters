@@ -10,6 +10,7 @@
           <% end %>
           <%= user.first_name.capitalize %> <%= user.last_name.capitalize %>
         <% end %>
+        - <%= user.email %>
         <% if user == current_user %>
           - <small><b><i>YOU</i></b></small> <%= link_to "📝", edit_user_registration_path(user) %>
         <% end %>
