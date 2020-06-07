@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   autocomplete :users, :full_name, full: true
 
   def index
-    @users = User.all
+    @users = User.all.order(:id)
   end
 
   def show

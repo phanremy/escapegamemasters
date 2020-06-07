@@ -1,22 +1,20 @@
 <div class="container pt-5">
-  <%= link_to "New Game / Nouvelle Mission", new_game_path, class:"btn btn-success mb-5" %>
+  <%= link_to "New Game / Nouvelle Mission", new_game_path, class:"btn btn-success mb-3" %>
 
-  <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-5" %>
+  <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-3" %>
 
-  <ul style="list-style-type:none">
     <% @companies.each do |company| %>
-    <div class="p-5 border m-3 bg-white">
+    <div class="p-4 border my-3 bg-white">
       <h3><%= company.name %></h3>
       <% company.games.each do |game| %>
-        <li>
-          <%= link_to game_path(game) do  %>
-            <%= game.name %>
-          <% end %> - <small><%= game.company.name %></small>
-            - <%= link_to "📝", edit_game_path(game) %>
-        </li>
+          <p>
+            <%= link_to game_path(game) do  %>
+              <%= game.name %>
+            <% end %> - <small><%= game.company.name %></small>
+              - <%= link_to "📝", edit_game_path(game) %>
+          </p>
       <% end -%>
     </div>
     <% end %>
-  </ul>
 </div>
 
