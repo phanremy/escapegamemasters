@@ -18,3 +18,9 @@
   font-size: 40px;
   font-weight: bold;
 }
+
+@media(max-width: 426px) {
+  .master-banner{
+    padding: 150px 0;
+  }
+}
