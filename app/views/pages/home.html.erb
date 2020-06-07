@@ -1,7 +1,9 @@
 <div class="master-banner" id="master-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path("michael-jasmund-escape.jpg") %>); background-size: cover;">
   <div class="container text-center">
       <p data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</p>
-      <% unless user_signed_in? %>
+      <% if user_signed_in? %>
+        <br><%= link_to "Access your Dashboard", user_path(current_user), class:"btn btn-success px-5" %>
+      <% else %>
         <br><%= link_to "Start by Signing up!", new_user_registration_path, class:"btn btn-success px-5"  %>
        <% end %>
   </div>

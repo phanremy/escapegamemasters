@@ -29,7 +29,9 @@
                     required: true %>
         <%= f.input :last_name,
                     required: true %>
-        <%= f.input :birthday %>
+        <%= f.input :birthday,
+        as: :string,
+        input_html: {class: "datepicker"} %>
         <%= f.input :location %>
         <%= f.input :avatar, as: :file %>
       </div>

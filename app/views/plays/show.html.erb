@@ -40,7 +40,7 @@
                 <%= link_to "Editer la partie", edit_play_path(@play) %> |
               <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
               <% else %>
-                Mission édité par <%= @play.user.full_name %> |
+                Mission éditée par <%= @play.user.full_name %> |
               <% end %>
               <%= link_to "Retour au dashboard", user_path(current_user) %>
               <% if @admin %>
