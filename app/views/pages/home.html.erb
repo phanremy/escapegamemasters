@@ -1,18 +1,18 @@
 <div class="master-banner" id="master-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path("michael-jasmund-escape.jpg") %>); background-size: cover;">
   <div class="container text-center">
-      <h1 data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</h1>
+      <h1 style="font-family: 'Staatliches', cursive; font-size:64px;" data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</h1>
       <% if user_signed_in? %>
         <br><%= link_to "Access your Dashboard", user_path(current_user), class:"btn btn-success px-5" %>
       <% else %>
-        <br><%= link_to "Start by Signing up!", new_user_registration_path, class:"btn btn-success px-5 mb-2"  %>
-        <%= link_to "Access a Sample Dashboard", "#dashboard", class:"btn btn-primary px-4 mb-2" %>
-        <%= link_to "Access a Sample Play", "#dashboard", class:"btn btn-danger px-4 mb-2" %>
+        <br><%= link_to "Inscrivez vous!", new_user_registration_path, class:"btn btn-success px-5 mb-2"  %>
+        <br><%= link_to "Exemple de Dashboard", "#dashboard", class:"btn btn-primary px-4 mb-2" %>
+        <%= link_to "Exemple de Mission", "#play", class:"btn btn-danger px-4 mb-2" %>
        <% end %>
   </div>
 </div>
 
 
-
+<!--
 <div class="py-5" id="text">
   <div class="container">
     <div class="row">
@@ -34,18 +34,18 @@
     </div>
   </div>
 </div>
-
+ -->
 <div class="py-5 bg-white" id="cards">
   <div class="container container-home text-center">
     <h2> <%= Play.all.count %> Missions Enregistrés, <%= Game.all.count %> Escape Games à decouvrir!</h2>
     <div class="cards">
-      <% @play = Play.all.reject { |p| p.photos.sample.nil? }.sample  %>
-      <% @play_to_reject1 = @play %>
+      <% @vertical_card_play = Play.all.reject { |p| p.photos.sample.nil? }.sample  %>
+      <% @play_to_reject1 = @vertical_card_play %>
       <%= render "shared/vertical-card" %>
-      <% @play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 }.sample  %>
-      <% @play_to_reject2 = @play %>
+      <% @vertical_card_play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 }.sample  %>
+      <% @play_to_reject2 = @vertical_card_play %>
       <%= render "shared/vertical-card" %>
-      <% @play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 || p == @play_to_reject2}.sample  %>
+      <% @vertical_card_play = Play.all.reject { |p| p.photos.sample.nil? || p == @play_to_reject1 || p == @play_to_reject2}.sample  %>
       <%= render "shared/vertical-card" %>
     </div>
   </div>
@@ -64,10 +64,14 @@
   <%= render 'users/show' %>
 </div>
 
-<div style="background-color: white" class="py-5" id="table-of-content">
+<div style="background-color: white" class="py-5" id="play">
   <%= render 'plays/show' %>
 </div>
 
+
+<div id="social-links">
+  <%= render 'shared/social-links' %>
+</div>
 
 <div id="master-footer">
   <%= render 'shared/master-footer' %>

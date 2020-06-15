@@ -80,12 +80,14 @@
        <ul style="list-style-type:none; padding: 0px">
          <% @plays.each do |play| %>
           <% @participants = play.participations.map(&:user_id) %>
-          <% if (@signed && @participants.include?(current_user.id) || play.user_id == 1) %>
+          <% if (@signed && @participants.include?(current_user.id)) %>
             <%= link_to play_path(play), class:"play-link" do  %>
               <%= render "shared/_game_card", play: play %>
             <% end -%>
           <% else %>
-            <%= render "shared/_game_card", play: play %>
+            <%= link_to "#", class:"play-link" do  %>
+             <%= render "shared/_game_card", play: play %>
+            <% end -%>
           <% end %>
          <% end %>
        </ul>

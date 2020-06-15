@@ -10,7 +10,7 @@
       </div>
       <div class="user-show-card-content container">
         <p>
-          <i class="fas fa-thumbtack mr-2" style="color:orange"></i> <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
+          <i class="fas fa-thumbtack mr-2" style="color:orange"></i> <%= link_to @play.game.name, game_path(@play.game) %> de <b><%= @play.game.company.name %></b>
         </p>
         <% if @play.date %>
           <p>
@@ -212,8 +212,12 @@
       </div>
       <div class="user-show-card-content container">
         <div class="messages">
-          <% @play.messages.each do |message| %>
-            <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+          <% if @play.messages.count == 0 %>
+            <p>Commencez à discuter sur la mission!</p>
+          <% else %>
+            <% @play.messages.each do |message| %>
+              <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+            <% end %>
           <% end %>
         </div>
         <% if @participant %>
