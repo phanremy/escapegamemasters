@@ -1,0 +1,96 @@
+<% @admin = (current_user == @user) %>
+<% @signed = !(current_user.nil?) %>
+<div class="container">
+  <h1 style="font-family: 'Staatliches', cursive;" class="my-4">Example de dashboard</h1>
+  <div class="d-flex align-items-center my-5">
+    <div>
+      <% if @user.avatar.attached? %>
+        <%= cl_image_tag @user.avatar.key, class: "avatar-profil" %>
+      <% else %>
+        <%= image_tag "user_avatar.png", class: "avatar-profil" %>
+      <% end %>
+    </div>
+    <div class="ml-5">
+      <h1>
+        <%= @user.full_name %>
+      </h1>
+      <h4><em>Escape Game Master</em></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-lg-6 py-2 user-show-cards" style="min-height:30vh">
+      <div class="user-show-card-title">
+        <h2> <i class="fas fa-chart-bar"></i> Stats </h2>
+      </div>
+      <div class="user-show-card-content container">
+         <% @done_count = @plays.length - @pending.length  %>
+         <p>
+         <%= @admin ? "Tu" : @user.first_name %> a<%= @admin ? "s" : "" %> participé à <b><%= @one %></b> mission<%= @one <=1 ? "" : "s" %> (<b><%= @win.length %></b> gagnée<%= @win.length <=1 ? "" : "s" %>,  <b><%= @lose.length %></b> perdue<%= @lose.length <=1 ? "" : "s" %>) et a<%= @admin ? "s" : "" %> <b><%= @none %></b> mission<%= @none <=1 ? "" : "s" %> en attente.
+         </p>
+         <% if @user.top %>
+           <ul style="list-style-type:none">
+             <li>
+              <%= @admin ? "Tu" : @user.first_name %> recommande<%= @admin ? "s" : "" %>:
+             </li>
+           </ul>
+           <ol>
+            <% if @top.one %>
+             <%= render 'users/top', top: @top.one, comment: @top.one_comment %>
+              <% if @top.two %>
+               <%= render 'users/top', top: @top.two, comment: @top.two_comment %>
+                <% if @top.three %>
+                 <%= render 'users/top', top: @top.three, comment: @top.three_comment %>
+                  <% if @top.four %>
+                   <%= render 'users/top', top: @top.four, comment: @top.four_comment %>
+                    <% if @top.five %>
+                     <%= render 'users/top', top: @top.five, comment: @top.five_comment %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+           </ol>
+<!--            <% if @admin %>
+              <div class="d-flex align-items-center justify-content-end">
+                <div>
+                  <%= link_to "Editer Top", edit_user_top_path(current_user, @top) %> |
+                  <%= link_to "Supprimer Top", top_path(@top), method: :delete, data: { confirm: 'Are you fucking sure?' }  %>
+                </div>
+              </div>
+           <% end %> -->
+         <% elsif @admin && (@user.participations.count >= 5) %>
+            <%= link_to "Creer ton Top 5", new_user_top_path(current_user), class: "btn btn-success" %>
+         <% elsif @admin && (@user.participations.count < 5)%>
+            <p>
+              <em>Register 5 plays and create your top 5</em>
+            </p>
+         <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6 py-2 user-show-cards" style="min-height:30vh">
+     <div class="user-show-card-title">
+      <h2> <i class="fas fa-list-alt"></i> Missions </h2>
+     </div>
+     <div class="user-show-card-content container">
+<!--        <% if current_user == @user %>
+
+          <%= link_to "New Play", new_play_path, class:"btn btn-success mb-2" %>
+
+       <% end %> -->
+       <ul style="list-style-type:none; padding: 0px">
+         <% @plays.first(5).each do |play| %>
+          <% @participants = play.participations.map(&:user_id) %>
+          <% if (@signed && @participants.include?(current_user.id) || play.user_id == 1) %>
+            <%= link_to play_path(play), class:"play-link" do  %>
+              <%= render "shared/_game_card", play: play %>
+            <% end -%>
+          <% else %>
+            <%= render "shared/_game_card", play: play %>
+          <% end %>
+         <% end %>
+       </ul>
+     </div>
+    </div>
+  </div>
+</div>

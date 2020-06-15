@@ -1,8 +1,11 @@
 <div class="container pt-5">
-  <%= link_to "New Game / Nouvelle Mission", new_game_path, class:"btn btn-success mb-3" %>
 
-  <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-3" %>
+  <% if  false%>
+    <%= link_to "New Game / Nouvelle Mission", new_game_path, class:"btn btn-success mb-3" %>
 
+    <%= link_to "New Company / Nouvelle Boite", new_company_path, class:"btn btn-primary mb-3" %>
+  <% end %>
+    <h1 class="my-4">Listes des missions disponibles</h1>
     <% @companies.each do |company| %>
     <div class="p-4 border my-3 bg-white">
       <h3><%= company.name %></h3>

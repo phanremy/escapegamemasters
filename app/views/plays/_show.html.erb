@@ -1,0 +1,248 @@
+<% @admin = (current_user == @play.user) %>
+<% @signed = !(current_user.nil?) %>
+<% @participant = @signed && @participants.include?(current_user.id) %>
+
+<div class="container">
+  <h1 class="py-4" style="font-family: 'Staatliches', cursive;">Exemple de Salles d'Escape, visible seulement aux participants</h1>
+  <div class="row">
+    <div class="col-12 col-lg-6 py-2 user-show-cards">
+      <div class="user-show-card-title">
+        <h2><i class="fas fa-flag"></i> Mission</h2>
+      </div>
+      <div class="user-show-card-content container">
+        <p>
+          <i class="fas fa-thumbtack mr-2" style="color:orange"></i> <%= link_to @play.game.name, game_path(@play.game) %> from <b><%= @play.game.company.name %></b>
+        </p>
+        <% if @play.date %>
+          <p>
+            <i class="far fa-calendar-alt mr-2" style="color:blue"></i> <%= @play.date.strftime("%A, %b %d") %>
+          </p>
+        <% end %>
+        <p>
+
+          <% if @play.won %>
+            <i class="fas fa-check-circle mr-2" style="color:green"></i> Vous avez gagné! (Score non renseigné)
+          <% elsif @play.won == false %>
+            <i class="fas fa-check-circle mr-2" style="color:red"></i> Vous avez perdu.. (Score non renseigné)
+          <% else %>
+            <i class="fas fa-check-circle mr-2"></i> Partie non déroulé
+          <% end %>
+        </p>
+
+        <!-- No cares if done or not -->
+        <% if @play.done %>
+        <% else %>
+        <% end %>
+
+        <% if @participant %>
+          <div class="d-flex justify-content-end mt-5">
+            <p>
+              <% if @admin %>
+                <%= link_to "Editer la partie", edit_play_path(@play) %> |
+              <!-- TEMPORARY IF TO MAKE APP ACCESSIBLE WITHOUT ACCOUNT -->
+              <% else %>
+                Mission éditée par <%= @play.user.full_name %> |
+              <% end %>
+              <%= link_to "Retour au dashboard", user_path(current_user) %>
+              <% if @admin %>
+               | <%= link_to "Supprimer la partie", play_path(@play), method: :delete, data: { confirm: "are you sure?"} %>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6 py-2 user-show-cards">
+      <div class="user-show-card-title">
+        <h2><i class="fas fa-users"></i> Participants</h2>
+      </div>
+      <div class="user-show-card-content container">
+        <div class="participant-cards">
+          <% @play.participations.each do |participation|%>
+            <% @player = participation.user %>
+            <!-- ONLY ADMIN AND OWN PARTICIPANTS CAN DELETE PARTICIPATIONS -->
+            <% if @player.nil? %>
+                <%= render 'plays/participants', participation: participation %>
+            <% else %>
+              <%= link_to user_path(@player) do  %>
+                <%= render 'plays/participants', participation: participation %>
+              <% end -%>
+            <% end %>
+          <% end %>
+        </div>
+
+        <% if @participant %>
+          <div class="form-player">
+            <%= form_tag play_add_players_path(@play), method: :patch do %>
+              <%= text_field_tag :player,
+                params[:player],
+                data: { autocomplete: autocomplete_user_full_name_users_path },
+                class: "form-control player-field-tag",
+                placeholder: "Ecrivez le nom de la personne ou cherchez dans la liste ci-dessous"
+              %>
+              <select class="select2" id="user-input" name="user" data-id-element='#play_user_id'>
+                <% @users.each do |user| %>
+                  <option></option>
+                  <option value="user-<%= user.full_name %>" class="user-selects">
+                    <%= user.full_name %>
+                  </option>
+                <% end %>
+              </select>
+              <div class="mt-3">
+                <%= submit_tag "Ajouter un participant", class: "btn btn-success" %>
+                <% if @admin %>
+                  <%= link_to "Supprimer un participant", "#", class: "btn btn-link", data: { toggle:"modal", target:".bd-example-modal"}  %>
+                <% end %>
+              </div>
+            <% end %>
+            <% unless @response.nil? %>
+              <%= @response %>
+            <% end %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+
+
+        <div class="modal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="user-show-card-content container">
+                <div class="participant-cards">
+                  <% @play.participations.each do |participation|%>
+                    <% @player = participation.user %>
+                    <!-- ONLY ADMIN AND OWN PARTICIPANTS CAN DELETE PARTICIPATIONS -->
+                    <div class="d-flex justify-content-between align-items-center" style="width:100%;">
+                      <%= render 'plays/participants', participation: participation %>
+                      <div class="px-5" style="">
+                        <%= link_to participation_path(participation), method: :delete, data: {confirm: "Are your sure?"} do  %>
+                          <i class="far fa-times-circle" style="color: red;"></i>
+                          <span style="color: red;">Delete</span>
+                        <% end -%>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+  <div class="row">
+    <div class="col-12 col-lg-6 py-2 user-show-cards">
+      <div class="user-show-card-title">
+        <h2>
+          <i class="fas fa-camera-retro"></i> Photos
+        </h2>
+      </div>
+      <div class="user-show-card-content container">
+        <% if @participant %>
+          <div class="mb-3">
+            <%= simple_form_for(@play) do |f| %>
+              <%= f.input :photos, as: :file, input_html: { multiple: true }, label: false %>
+              <%= f.submit "Ajouter des photos", class: "btn btn-success" %>
+              <% if @admin && @play.photos.count > 0%>
+                <%= link_to "Supprimer une photo", "#", class: "btn btn-link", data: { toggle:"modal", target:".bd-example-modal-lg"} %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <h4>Gallerie</h4>
+        <div class="d-flex flex-wrap align-items-center justify-content-center my-3" id="lightgallery">
+          <% if @play.photos.count == 0 %>
+              <p>Pas de photos</p>
+          <% else %>
+            <% @play.photos.each do |photo| %>
+              <%#= link_to delete_photo_play_url(@play, photo.id), method: :delete, data: { confirm: 'Are you fucking sure?' } do%>
+              <%= link_to cl_image_path(photo.key) do %>
+                <%= cl_image_tag photo.key, class: "p-2", height: 200, width: 300, crop: :fill %>
+              <% end %>
+            <% end %>
+            <%#= link_to "Add photos", play_add_photos_path(@play), class:"btn btn-primary" %>
+            <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="user-show-card-content container">
+            <div class="participant-cards">
+              <% unless @play.photos.count == 0 %>
+                <% @play.photos.first(2).each do |photo| %>
+                  <div class="d-flex justify-content-between align-items-center" style="width:100%;">
+                    <%= cl_image_tag photo.key, class: "p-2", height: 200, width: 300, crop: :fill %>
+                    <div class="px-2" style="">
+                      <%#= link_to "Remove photos", play_delete_photos_path(@play), class:"btn btn-danger" %>
+                      <%= link_to delete_photo_play_url(@play, photo.id), method: :delete, data: { confirm: 'Are you sure?' } do%>
+                        <i class="far fa-times-circle" style="color: red;"></i>
+                        <span style="color: red;">Delete</span>
+                      <% end -%>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="col-12 col-lg-6 py-2 user-show-cards">
+      <div class="user-show-card-title">
+        <h2>
+         <i class="far fa-comments"></i> Conversation
+        </h2>
+      </div>
+      <div class="user-show-card-content container">
+        <div class="messages">
+          <% @play.messages.each do |message| %>
+            <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+          <% end %>
+        </div>
+        <% if @participant %>
+          <div id="create-message">
+            <%= simple_form_for [@play, Message.new], remote: true do |f| %>
+              <%= f.input :content, label: false %>
+                <%= f.submit "⬅️ Submit", class:"right btn btn-success my-2" %>
+              <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :after_js do %>
+  <script>
+
+
+    App['play_<%= @play.id %>'] = App.cable.subscriptions.create({ channel: 'PlaysChannel', play_id: <%= @play.id %>}, {
+      received: (data)=> {
+        if (data.current_user_id !== <%= current_user.nil? ? 0 : current_user.id %>) {
+          const messagesContainer = document.querySelector('.messages');
+          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+          scrollLastMessageIntoView();
+        }
+      }
+    })
+  </script>
+<% end %>
