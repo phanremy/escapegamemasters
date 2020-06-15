@@ -1,14 +1,14 @@
 <li>
-  <% if (@signed && @participants.include?(current_user.id) || play.user_id == 1) %>
+  <% if (@signed && @participants.include?(current_user.id)) %>
     <div class="game-card p-1 my-1" style="background-color: #E8D33F;">
   <% else %>
-    <div class="game-card p-1 my-1">
+    <div class="game-card p-1 my- border">
   <% end -%>
     <div class="row">
       <div class="col-9 col-lg-9">
          <%= play.game.name %> - <%= play.game.company.name %>
       </div>
-      <div class="col-3 col-lg-3 justify-content-center align-items-center" style="text-align:right">
+      <div class="col-3 col-lg-3 justify-content-center align-items-center" style="text-align:right; text-overflow: ellipsis; overflow:auto;">
         <% if play.won %>
           <b style="color:green">WIN</b>
         <% elsif play.won == false %>
@@ -24,7 +24,7 @@
     </div>
     <div class="row">
       <div class="col-12" style="text-align:right">
-        <% play.participations.first(5).each do |participation|%>
+        <% play.participations.first(4).each do |participation|%>
           <% if participation.user %>
             <% if participation.user.avatar.attached? %>
               <%= cl_image_tag participation.user.avatar.key, class: "avatar", alt: participation.user.full_name%>

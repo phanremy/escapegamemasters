@@ -1,7 +1,7 @@
 <% @admin = (current_user == @user) %>
 <% @signed = !(current_user.nil?) %>
 <div class="container">
-  <h1 style="font-family: 'Staatliches', cursive;" class="my-4">Example de dashboard</h1>
+  <h1 style="font-family: 'Staatliches', sans-serif;" class="my-4">Example de dashboard</h1>
   <div class="d-flex align-items-center my-5">
     <div>
       <% if @user.avatar.attached? %>
@@ -50,14 +50,14 @@
               <% end %>
             <% end %>
            </ol>
-<!--            <% if @admin %>
+            <% if @admin %>
               <div class="d-flex align-items-center justify-content-end">
                 <div>
                   <%= link_to "Editer Top", edit_user_top_path(current_user, @top) %> |
                   <%= link_to "Supprimer Top", top_path(@top), method: :delete, data: { confirm: 'Are you fucking sure?' }  %>
                 </div>
               </div>
-           <% end %> -->
+           <% end %>
          <% elsif @admin && (@user.participations.count >= 5) %>
             <%= link_to "Creer ton Top 5", new_user_top_path(current_user), class: "btn btn-success" %>
          <% elsif @admin && (@user.participations.count < 5)%>

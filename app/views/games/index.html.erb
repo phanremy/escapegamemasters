@@ -8,13 +8,12 @@
     <h1 class="my-4">Listes des missions disponibles</h1>
     <% @companies.each do |company| %>
     <div class="p-4 border my-3 bg-white">
-      <h3><%= company.name %></h3>
+      <h3 class="mb-3"><%= company.name %></h3>
       <% company.games.each do |game| %>
           <p>
             <%= link_to game_path(game) do  %>
               <%= game.name %>
-            <% end %> - <small><%= game.company.name %></small>
-              - <%= link_to "📝", edit_game_path(game) %>
+            <% end %>
           </p>
       <% end -%>
     </div>

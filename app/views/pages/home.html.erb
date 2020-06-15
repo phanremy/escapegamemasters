@@ -1,6 +1,6 @@
 <div class="master-banner" id="master-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path("michael-jasmund-escape.jpg") %>); background-size: cover;">
   <div class="container text-center">
-      <h1 style="font-family: 'Staatliches', cursive; font-size:64px;" data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</h1>
+      <h1 style="font-family: 'Staatliches', sans-serif; font-size:64px;" data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</h1>
       <% if user_signed_in? %>
         <br><%= link_to "Access your Dashboard", user_path(current_user), class:"btn btn-success px-5" %>
       <% else %>

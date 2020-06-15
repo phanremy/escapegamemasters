@@ -1,6 +1,6 @@
 <div class="card m-3" style="width: 18rem;">
   <%= cl_image_tag @vertical_card_play.photos.sample.key, class: "card-img-top", height: 200, width: 300, crop: :fill %>
-  <div class="card-body">
+  <div class="card-body" style="background-color: #E8D33F;">
     <p class="card-text"><b><%= @vertical_card_play.game.name %></b></p>
     <p class="card-text" style="text-align: right">from <em><%= @vertical_card_play.game.company.name %></em> </p>
   </div>

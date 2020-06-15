@@ -1,0 +1,5 @@
+meta_product_name: "Escape Game Masters"
+meta_title: "Escape Game Masters"
+meta_description: "Vos escape games, photos et souvenirs sur une seule app - Escape Game Masters"
+meta_image: "components/og-image-menu.png" # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account"   # required for Twitter Cards
