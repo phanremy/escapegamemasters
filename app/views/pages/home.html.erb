@@ -2,9 +2,9 @@
   <div class="container text-center">
       <h1 style="font-family: 'Staatliches', sans-serif; font-size:64px;" data-aos="fade-down-right" data-aos-duration="3000">ESCAPE GAME MASTERS</h1>
       <% if user_signed_in? %>
-        <br><%= link_to "Access your Dashboard", user_path(current_user), class:"btn btn-success px-5" %>
+        <br><%= link_to "Accéder à vos souvenirs d'Escape Game", user_path(current_user), class:"btn btn-success px-5" %>
       <% else %>
-        <br><%= link_to "Inscrivez vous!", new_user_registration_path, class:"btn btn-success px-5 mb-2"  %>
+        <br><%= link_to "Inscription", new_user_registration_path, class:"btn btn-success px-5 mb-2"  %>
         <br><%= link_to "Exemple de Dashboard", "#dashboard", class:"btn btn-primary px-4 mb-2" %>
         <%= link_to "Exemple de Mission", "#play", class:"btn btn-danger px-4 mb-2" %>
        <% end %>
